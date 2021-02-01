@@ -1,0 +1,458 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Gstc.Collections.Observable</name>
+    </assembly>
+    <members>
+        <member name="T:Gstc.Collections.Observable.Base.INotifyListChanged">
+            <summary>
+            Provides a set of events that will be triggered by changes to a List.
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.INotifyListChanged.Added">
+            <summary>
+            Triggers events when an item or items are added. 
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.INotifyListChanged.Removed">
+            <summary>
+            Triggers events when an item or items are removed. 
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.INotifyListChanged.Moved">
+            <summary>
+            Triggers events when an item has changed position. 
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.INotifyListChanged.Replaced">
+            <summary>
+            Triggers events when an item has been replaced. 
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.INotifyListChanged.Reset">
+            <summary>
+            Triggers events when an the list has changed substantially such as a Clear(). 
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.NotifyCollection.CollectionChanged">
+            <summary>
+            Triggers events on any change of collection. 
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.NotifyCollection.Added">
+            <summary>
+            Triggers events when an item or items are added. 
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.NotifyCollection.Removed">
+            <summary>
+            Triggers events when an item or items are removed. 
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.NotifyCollection.Moved">
+            <summary>
+            Triggers events when an item has changed position. 
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.NotifyCollection.Replaced">
+            <summary>
+            Triggers events when an item has been replaced. 
+            </summary>
+        </member>
+        <member name="E:Gstc.Collections.Observable.Base.NotifyCollection.Reset">
+            <summary>
+            Triggers events when an the list has changed substantially such as a Clear(). 
+            </summary>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Base.NotifyDictionaryChangedEventArgs.#ctor(Gstc.Collections.Observable.Base.NotifyDictionaryChangedAction)">
+            <summary>
+            Construct a NotifyDictionaryChangedEventArgs that describes a reset change.
+            </summary>
+            <param name="action">The action that caused the event; must be Reset action.</param>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Base.NotifyDictionaryChangedEventArgs.#ctor(Gstc.Collections.Observable.Base.NotifyDictionaryChangedAction,System.Object,System.Object)">
+            <summary>
+            Construct a NotifyDictionaryChangedEventArgs that describes a one-item change.
+            </summary>
+            <param name="action">The action that caused the event; must be Add or Remove action.</param>
+            <param name="changedItem">The item affected by the change.</param>
+            <param name="key">The key where the change occurred.</param>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Base.NotifyDictionaryChangedEventArgs.#ctor(Gstc.Collections.Observable.Base.NotifyDictionaryChangedAction,System.Collections.Generic.IList{System.Object},System.Collections.Generic.IList{System.Object})">
+            <summary>
+            Construct a NotifyDictionaryChangedEventArgs that describes a multi-item change; can only be Add or Remove action.
+            </summary>
+            <param name="action">The action that caused the event.</param>
+            <param name="changedItems">The items affected by the change.</param>
+            <param name="keys">Keys of items that have been changed.</param>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Base.NotifyDictionaryChangedEventArgs.#ctor(Gstc.Collections.Observable.Base.NotifyDictionaryChangedAction,System.Object,System.Object,System.Object)">
+            <summary>
+            Construct a NotifyDictionaryChangedEventArgs that describes a one-item Replace event, can only be Replace.
+            </summary>
+            <param name="action">Can only be a Replace action.</param>
+            <param name="newItem">The new item replacing the original item.</param>
+            <param name="oldItem">The original item that is replaced.</param>
+            <param name="key">Keys of items that have been replaced.</param>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Base.NotifyDictionaryChangedEventArgs.#ctor(Gstc.Collections.Observable.Base.NotifyDictionaryChangedAction,System.Collections.Generic.IList{System.Object},System.Collections.Generic.IList{System.Object},System.Collections.Generic.IList{System.Object})">
+            <summary>
+            Construct a NotifyDictionaryChangedEventArgs that describes a multi-item Replace event.
+            </summary>
+            <param name="action">Can only be a Replace action.</param>
+            <param name="newItems">The new items replacing the original items.</param>
+            <param name="oldItems">The original items that are replaced.</param>
+            <param name="keys">Keys of items that have been replaced.</param>
+        </member>
+        <member name="P:Gstc.Collections.Observable.Base.NotifyDictionaryChangedEventArgs.Action">
+            <summary>
+            The action that caused the event.
+            </summary>
+        </member>
+        <member name="P:Gstc.Collections.Observable.Base.NotifyDictionaryChangedEventArgs.NewItems">
+            <summary>
+            The items affected by the change.
+            </summary>
+        </member>
+        <member name="P:Gstc.Collections.Observable.Base.NotifyDictionaryChangedEventArgs.OldItems">
+            <summary>
+            The old items affected by the change (for Replace events).
+            </summary>
+        </member>
+        <member name="P:Gstc.Collections.Observable.Base.NotifyDictionaryChangedEventArgs.NewKeys">
+            <summary>
+            The index where the change occurred.
+            </summary>
+        </member>
+        <member name="P:Gstc.Collections.Observable.Base.NotifyDictionaryChangedEventArgs.OldKeys">
+            <summary>
+            The old index where the change occurred (for Move events).
+            </summary>
+        </member>
+        <member name="T:Gstc.Collections.Observable.Base.SR">
+            <summary>
+            Kludge to keep code consistent with the .NET core error handling signatures.
+            </summary>
+        </member>
+        <member name="T:Gstc.Collections.Observable.Extended.ObservableListSyncFunc`2">
+             <summary>
+             This class is an implementation of the abstract class ObservableListAdapter with the
+             Convert method defined at instantiation using an anonymous function in the constructor.
+            
+             For Details see the ObservableListAdapter class. 
+             </summary>
+             <typeparam name="TInput">Source element type (e.g. Model class)</typeparam>
+             <typeparam name="TOutput">Destination element type (e.g. ViewModel class</typeparam>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListSyncFunc`2.FromList(System.Collections.Generic.List{`0},System.Func{`0,`1},System.Func{`1,`0})">
+            <summary>
+            Generates an ObservableList of type TOutput that is synchronized to a list of TInput. 
+            This method wraps a conventional List{TInput} in an ObservableList{TInput}, then generates an
+            an ObservableList{TOutput}. The ObservableList{TInput} is accessible via SourceCollection property.
+            Added or removed items are propagated back to the original list.
+            It is recommended that TOutput is a passthrough map to TInput.
+            </summary>
+            <param name="list">A list to make observable and convert to type TOutput.</param>
+            <param name="convert">Conversion method from TInput to TOutput</param>
+            <param name="convertBack">Conversion method from TOutput to TInput</param>
+            <returns></returns>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListSyncFunc`2.#ctor(System.Func{`0,`1},System.Func{`1,`0})">
+            <summary>
+            Creates a Observable list that automatically synchronizes between items of type TInput to TOutput. 
+            An input list of type ObservableList should be provided after initialization.
+            </summary>
+            <param name="convert"></param>
+            <param name="convertBack"></param>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListSyncFunc`2.#ctor(Gstc.Collections.Observable.ObservableList{`0},System.Func{`0,`1},System.Func{`1,`0})">
+            <summary>
+             Creates a Observable list that automatically synchronizes Observable lists between items of type TInput to TOutput. 
+            </summary>
+            <param name="sourceObservableList"></param>
+            <param name="convert"></param>
+            <param name="convertBack"></param>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListSyncFunc`2.Convert(`0)">
+            <summary>
+            Converts item of type TInput to TOutput.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListSyncFunc`2.ConvertBack(`1)">
+            <summary>
+            Converts item of type TOutput to TInput.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Gstc.Collections.Observable.Extended.ObservableListSync`2">
+            <summary>
+            The Observable list adapter is a one-way synchronizer between a source observable list of type
+            TInput and a destination observable list of TOutput. The method Convert(...) must be implemented
+            as an adapter between the source element and destination element. 
+            
+            This class is intended to serve as a one-way map between a collection of models and a collection of
+            ViewModels though can be used for arbitrary purpose. It is recommened the destination element should
+            contain a reference to the source element and propogate changes to the destination element via
+            INotifyPropertyChanged or direct mapping to the source. 
+            </summary>
+            <typeparam name="TInput">Source element type (e.g. Model class)</typeparam>
+            <typeparam name="TOutput">Destination element type (e.g. ViewModel class</typeparam>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListSync`2.Convert(`0)">
+            <summary>
+            Method for converting an item of type TInput to TOutput.
+            </summary>
+            <param name="item">The source TInput Item.</param>
+            <returns>An output item type.</returns>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListSync`2.ConvertBack(`1)">
+            <summary>
+            Method for converting an item of type TOuput back to its TInput type.
+            </summary>
+            <param name="item">The ouput item to be converted back to its original type.</param>
+            <returns>The source item type.</returns>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListSync`2.#ctor">
+            <summary>
+            Initializes empty list. Must be filled.
+            </summary>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListSync`2.#ctor(Gstc.Collections.Observable.ObservableList{`0})">
+            <summary>
+            Initializes a ObservableListAdapter with a collection implementing IObservable collection.
+            </summary>
+            <param name="sourceCollection"></param>
+        </member>
+        <member name="P:Gstc.Collections.Observable.Extended.ObservableListSync`2.SourceObservableList">
+            <summary>
+            A collection that implements IObservableCollection that the Adapter can watch.
+            </summary>
+        </member>
+        <member name="T:Gstc.Collections.Observable.Extended.ObservableDictionaryCollection`2">
+            <summary>
+            An observable Dictionary with a backing list and observable Icollection.
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+        </member>
+        <member name="T:Gstc.Collections.Observable.Extended.ObservableListAdapterFunc`2">
+             <summary>
+             This class is an implementation of the abstract class ObservableListAdapter with the
+             Convert method defined at instantiation using an anonymous function in the constructor.
+            
+             For Details see the ObservableListAdapter class. 
+             </summary>
+             <typeparam name="TInput">Source element type (e.g. Model class)</typeparam>
+             <typeparam name="TOutput">Destination element type (e.g. ViewModel class</typeparam>
+        </member>
+        <member name="T:Gstc.Collections.Observable.Extended.ObservableListKeyed`2">
+             <summary>
+             This class is an Observable List wherein items are accessed via index using a Key defined in the
+             object, functioning somewhat similar to a Keyed Collection. Standard integer indexing can be used
+             using the exposed List property.
+            
+             This class can be used to wrap a standard list via constructor.
+            
+             The class implements the INotifyCollectionChanged and INotifyDictionaryChanged providing notification
+             on the change of objects.
+            
+             The class contains a backing List, wherein elements can be accessed via index, and a backing dictionary
+             providing O(1) index access times. The dictionary key is defined by the GetKey method and created
+             when added to the list. Care should be taken when updating the key property in the element, as it
+             will not propogate to the dictionary.
+             
+             </summary>
+             <typeparam name="TKey"></typeparam>
+             <typeparam name="TValue"></typeparam>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListKeyed`2.GetKey(`1)">
+            <summary>
+            This is the map between your object and its internal key. It must be overridden, or alternatively use the ObservableKeyedListFunc class,
+            and supply it with a Delegate.
+            </summary>
+            <param name="item"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Gstc.Collections.Observable.Extended.ObservableListKeyed`2.List">
+            <summary>
+            Sets the internal list the ListKeyed is bound too.
+            </summary>
+        </member>
+        <member name="P:Gstc.Collections.Observable.Extended.ObservableListKeyed`2.Dictionary">
+            <summary>
+            Returns the internal dictionary that is used to track keys on the list.
+            </summary>
+        </member>
+        <member name="T:Gstc.Collections.Observable.Extended.ObservableListKeyedFunc`2">
+             <summary>
+             This class is an implementation of ListKeyed that defines its GetKey method
+             via anonymous function at runtime.
+            
+             See the ListKeyed for more details. 
+             </summary>
+             <typeparam name="TKey"></typeparam>
+             <typeparam name="TValue"></typeparam>
+        </member>
+        <member name="T:Gstc.Collections.Observable.Extended.ObservableListAdapter`2">
+            <summary>
+            The Observable list adapter is a one-way synchronizer between a source observable list of type
+            TInput and a destination observable list of TOutput. The method Convert(...) must be implemented
+            as an adapter between the source element and destination element. 
+            
+            This class is intended to serve as a one-way map between a collection of models and a collection of
+            ViewModels though can be used for arbitrary purpose. It is recommened the destination element should
+            contain a reference to the source element and propogate changes to the destination element via
+            INotifyPropertyChanged or direct mapping to the source. 
+            </summary>
+            <typeparam name="TInput">Source element type (e.g. Model class)</typeparam>
+            <typeparam name="TOutput">Destination element type (e.g. ViewModel class</typeparam>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListAdapter`2.Convert(`0)">
+            <summary>
+            Method for converting an item of type TInput to TOutput.
+            </summary>
+            <param name="item">The source TInput Item.</param>
+            <returns>An output item type.</returns>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListAdapter`2.Convert(`1)">
+            <summary>
+            Method for converting an item of type TOuput back to its TInput type.
+            </summary>
+            <param name="item">The ouput item to be converted back to its original type.</param>
+            <returns>The source item type.</returns>
+        </member>
+        <member name="M:Gstc.Collections.Observable.Extended.ObservableListAdapter`2.#ctor(Gstc.Collections.Observable.IObservableCollection{`0})">
+            <summary>
+            Initializes a ObservableListAdapter with a collection implementing IObservable collection.
+            </summary>
+            <param name="sourceCollection"></param>
+        </member>
+        <member name="P:Gstc.Collections.Observable.Extended.ObservableListAdapter`2.SourceCollection">
+            <summary>
+            A collection that implements IObservableCollection that the Adapter can watch.
+            </summary>
+        </member>
+        <member name="T:Gstc.Collections.Observable.IObservableList`1">
+            <summary>
+            A List that triggers INotifyCollectionChanged and INotifyPropertyChanged when list changes.
+            </summary>
+            <typeparam name="TItem"></typeparam>
+        </member>
+        <member name="T:Gstc.Collections.Observable.misc.EnumeratorAdapter`2">
+            <summary>
+            Enumerator that exposes model item type (T1) as model view item type (T2). 
+            </summary>
+            <typeparam name="T1"></typeparam>
+            <typeparam name="T2"></typeparam>
+        </member>
+        <member name="T:Gstc.Collections.Observable.misc.EnumeratorAdapterTyped`2">
+            <summary>
+            Enumerator that exposes model item type (T1) as model view item type (T2). 
+            </summary>
+            <typeparam name="T1">Input Type</typeparam>
+            <typeparam name="T2">Output type</typeparam>
+        </member>
+        <member name="T:Gstc.Collections.Observable.ObservableList`1">
+            <summary>
+            This class is a wrapper for a List that implements IList, INotifyCollectionChanged and contains
+            additional utility functions. It can be instantated on its own, or instantied with an already
+            existing List. In many cases using ObservableList may be preffered over using the .NET ObservableCollection
+            for its compatiblity with existing collection types and interface.
+            </summary>
+            <typeparam name="TItem"></typeparam>
+        </member>
+        <member name="P:Gstc.Collections.Observable.ObservableList`1.InternalList">
+            <summary>
+            Reference to internal list for use by base classes. Perhaps this should be internal instead of protected.
+            </summary>
+        </member>
+        <member name="M:Gstc.Collections.Observable.ObservableList`1.#ctor">
+            <summary>
+            Creates an observable list. The observable list is backed internally by a new .NET List.
+            </summary>
+        </member>
+        <member name="M:Gstc.Collections.Observable.ObservableList`1.#ctor(System.Collections.Generic.List{`0})">
+            <summary>
+            Creates an observable list using the list supplied in the constructor. Events are only triggered
+            when using the observable list or a downcast version of the observable list.
+            </summary>
+            <param name="list">List to wrap with observable list.</param>
+        </member>
+        <member name="P:Gstc.Collections.Observable.ObservableList`1.List">
+            <summary>
+            Gets the current internal list or replaces the current internal list with a new list. A Reset event will be triggered.
+            </summary>
+        </member>
+        <member name="M:Gstc.Collections.Observable.ObservableList`1.AddRange(System.Collections.Generic.IList{`0})">
+            <summary>
+            Adds a list of items and triggers a single CollectionChanged and Add event. 
+            </summary>
+            <param name="items">List of items. The default .NET collection changed event args returns an IList, so this is the preferred type. </param>
+        </member>
+        <member name="P:Gstc.Collections.Observable.ObservableList`1.Item(System.Int32)">
+            <summary>
+            Indexes an element of the list. CollectionChanged and Replaced events are triggered on assignment.
+            </summary>
+            <param name="index"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Gstc.Collections.Observable.ObservableList`1.Add(`0)">
+            <summary>
+            Adds an item to the list. CollectionChanged and Added event are triggered.
+            </summary>
+            <param name="item">Item to add</param>
+        </member>
+        <member name="M:Gstc.Collections.Observable.ObservableList`1.Clear">
+            <summary>
+            Clears all item from the list. CollectionChanged and Reset event are triggered.
+            </summary>
+        </member>
+        <member name="M:Gstc.Collections.Observable.ObservableList`1.Insert(System.Int32,`0)">
+            <summary>
+            Inserts an item at a specific index. CollectionChanged and Added event are triggered.
+            </summary>
+            <param name="index"></param>
+            <param name="item"></param>
+        </member>
+        <member name="M:Gstc.Collections.Observable.ObservableList`1.Move(System.Int32,System.Int32)">
+            <summary>
+            Moves an item to a new index. CollectionChanged and Moved event are triggered.
+            </summary>
+            <param name="oldIndex"></param>
+            <param name="newIndex"></param>
+        </member>
+        <member name="M:Gstc.Collections.Observable.ObservableList`1.Remove(`0)">
+            <summary>
+            Searches for the specified object and removes the first occurance if it exists. CollectionChanged and Moved events are triggered.
+            </summary>
+            <param name="item">Item to remove.</param>
+            <returns>Returns true if item was found and removed. Returns false if item does not exist.</returns>
+        </member>
+        <member name="M:Gstc.Collections.Observable.ObservableList`1.RemoveAt(System.Int32)">
+            <summary>
+            Removes item at specific index. CollectionChanged and Removed events are triggered.
+            </summary>
+            <param name="index"></param>
+        </member>
+        <member name="T:Gstc.Collections.Observable.ObservableDictionary`2">
+            <summary>
+            Observable dictionary can serve as a stand alone dictionary, or serve as an observable wrapper for a pre-existing dictionary.
+            ObservableDictionary implements INotifyPropertyChanged and INotifyDictionaryChanged. It does NOT implement ICollectionChanged.
+            Use an ObservableKeyedCollection or SortedList if you need ICollectionChanged.
+            
+            </summary>
+            <typeparam name="TKey">Key field of Dictionary</typeparam>
+            <typeparam name="TValue">Value field of Dictionary</typeparam>
+        </member>
+        <member name="T:Gstc.Collections.Observable.ObservableSortedList`2">
+            <summary>
+            This class is a wrapper for a sorted list that implements INotifyCollectionChanged and INotifyDictionaryChanged.
+            </summary>
+            <typeparam name="TKey"></typeparam>
+            <typeparam name="TValue"></typeparam>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,12 @@
+﻿<Page x:Class="Crossed_Miner.Monitor"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Crossed_Miner"
+      xmlns:WPF="clr-namespace:ConsoleControl.WPF;assembly=ConsoleControl.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="375" d:DesignWidth="924"
+      Title="Monitor" Background="#FF323131">
+    <Label Content="Work In Progress" Margin="412,175,397,149" Foreground="White"/>
+</Page>

@@ -1,2 +1,3 @@
-# Crossed_Miner
-ETH Miner for Crossed Swords
+# Crossed Swords - Ethereum Miner
+
+Mine some ethereum

@@ -1,0 +1,23 @@
+﻿<Page x:Class="Crossed_Miner.Miner"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Crossed_Miner"
+      xmlns:WPF="clr-namespace:ConsoleControl.WPF;assembly=ConsoleControl.WPF"
+      mc:Ignorable="d" 
+      d:DesignHeight="375" d:DesignWidth="924"
+      Title="Miner" Background="#FF323131">
+    <Grid Grid.Row="1" HorizontalAlignment="Left" Height="375" Margin="0,0,0,0" VerticalAlignment="Top" Width="924">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="345"/>
+            <ColumnDefinition Width="679"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="75"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="StartMiningButton" Content="Start Mining" HorizontalAlignment="Left" Margin="108,12,0,0" VerticalAlignment="Top" Width="115" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" Click="StartMiningButton_Click"/>
+        <WPF:ConsoleControl x:Name="myConsole" Grid.Column="1" HorizontalAlignment="Left" Height="355" Margin="10,7,0,0" VerticalAlignment="Top" Width="559" Grid.RowSpan="2"/>
+    </Grid>
+</Page>
