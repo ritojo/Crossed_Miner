@@ -24,11 +24,14 @@ namespace Crossed_Miner
 
         public static void LoadSettings()
         {
-            System.IO.StreamReader file = new System.IO.StreamReader("./settings.txt");
-            Server = file.ReadLine();
-            Worker = file.ReadLine();
-            Wallet = file.ReadLine();
-            file.Close();
+            if (System.IO.File.Exists("./settings.txt"))
+            {
+                System.IO.StreamReader file = new System.IO.StreamReader("./settings.txt");
+                Server = file.ReadLine();
+                Worker = file.ReadLine();
+                Wallet = file.ReadLine();
+                file.Close();
+            }
         }
     }
 }
