@@ -21,31 +21,31 @@ namespace Crossed_Miner
     /// </summary>
     public partial class Setup : Window
     {
-        public ObservableList<String>   Servers { get; set; }
+        private Settings settings;
 
-        public Setup()
+        public ObservableList<String> Servers = new ObservableList<string>() { "asia1.ethermine.org", "eu1.ethermine.org", "us1.ethermine.org", "us2.ethermine.org" };
+
+        public Setup( Settings settings)
         {
+            this.settings = settings;
+
             Servers = new ObservableList<string>();
-            Servers.Add("asia1.ethermine.org");
-            Servers.Add("eu1.ethermine.org");
-            Servers.Add("us1.ethermine.org");
-            Servers.Add("us2.ethermine.org");
 
             InitializeComponent();
 
-            if (Settings.Server != null)
+            if (settings.Server != null)
             {
-                serverComboBox.SelectedIndex = Servers.IndexOf(Settings.Server);
+                serverComboBox.SelectedIndex = Servers.IndexOf(settings.Server);
             }
 
-            if (Settings.Wallet != null)
+            if (settings.Wallet != null)
             {
-                walletTextBox.Text = Settings.Wallet;
+                walletTextBox.Text = settings.Wallet;
             }
 
-            if (Settings.Worker != null)
+            if (settings.Worker != null)
             {
-                workerTextBox.Text = Settings.Worker;
+                workerTextBox.Text = settings.Worker;
             }
 
             DataContext = this;
@@ -55,20 +55,20 @@ namespace Crossed_Miner
         {
             if (serverComboBox.SelectedItem != null)
             {
-                Settings.Server = serverComboBox.SelectedItem.ToString();
+                settings.Server = serverComboBox.SelectedItem.ToString();
             }
 
             if (walletTextBox.Text != null)
             {
-                Settings.Wallet = walletTextBox.Text;
+                settings.Wallet = walletTextBox.Text;
             }
 
             if (workerTextBox.Text != null)
             {
-                Settings.Worker = workerTextBox.Text;
+                settings.Worker = workerTextBox.Text;
             }
 
-            Settings.SaveSettings();
+            settings.SaveSettings();
             this.Close();
         }
 

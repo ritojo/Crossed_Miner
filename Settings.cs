@@ -1,34 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Crossed_Miner
 {
-    static class Settings
+    public class Settings
     {
-        public static String Server;
-        public static String Worker;
-        public static String Wallet;
+        public const string FileName = @"./settings.txt";
 
-        public static void SaveSettings()
+        public String Server;
+        public String Worker;
+        public String Wallet;
+
+        public Settings()
         {
-            System.IO.StreamWriter file = new System.IO.StreamWriter("./settings.txt");
-            file.WriteLine(Server);
-            file.WriteLine(Worker);
-            file.WriteLine(Wallet);
-            file.Close();
+
         }
 
-        public static void LoadSettings()
+        public void SaveSettings()
         {
-            System.IO.StreamReader file = new System.IO.StreamReader("./settings.txt");
-            Server = file.ReadLine();
-            Worker = file.ReadLine();
-            Wallet = file.ReadLine();
-            file.Close();
+            using (StreamWriter file = File.CreateText(FileName))
+            {
+                JsonSerializer serializer = new JsonSerializer();
+                serializer.Serialize(file, this);
+            }
         }
     }
 }

@@ -34,8 +34,12 @@ namespace Crossed_Miner
         private static System.Timers.Timer timer = new System.Timers.Timer(200);
         private DateTime mineStart = new DateTime();
 
-        public Miner()
+        private Settings settings;
+
+        public Miner(Settings settings)
         {
+            this.settings = settings;
+
             InitializeComponent();
             ReloadUI();
         }
@@ -55,9 +59,9 @@ namespace Crossed_Miner
 
         private void StartMiningButton_Click(object sender, RoutedEventArgs e)
         {
-            if (Settings.Server == null || Settings.Wallet == null || Settings.Worker == null)
+            if (settings.Server == null || settings.Wallet == null || settings.Worker == null)
             {
-                Setup setupWindow = new Setup();
+                Setup setupWindow = new Setup(settings);
                 setupWindow.ShowDialog();
             }
 
@@ -67,7 +71,7 @@ namespace Crossed_Miner
                 return;
             }
 
-            string args = "-a ethash -o stratum+tcp://" + Settings.Server + ":4444 -u " + Settings.Wallet + " -p x -w " + Settings.Worker;
+            string args = "-a ethash -o stratum+tcp://" + settings.Server + ":4444 -u " + settings.Wallet + " -p x -w " + settings.Worker;
 
             if(state == MiningState.MINING)
             {

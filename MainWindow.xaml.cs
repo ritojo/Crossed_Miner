@@ -13,6 +13,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Newtonsoft.Json;
+using System.IO;
 
 namespace Crossed_Miner
 {
@@ -21,23 +23,13 @@ namespace Crossed_Miner
     /// </summary>
     public partial class MainWindow : Window
     {
+        MainWindowViewModel viewModel;
+
         public MainWindow()
         {
+            viewModel = new MainWindowViewModel();
+            DataContext = viewModel;
             InitializeComponent();
-
-            // Load Settings
-            Settings.LoadSettings();
-        }
-
-        private void CloseButton_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
-
-        private void SetupButton_Click(object sender, RoutedEventArgs e)
-        {
-            Setup setupWindow = new Setup();
-            setupWindow.ShowDialog();
         }
     }
 }
