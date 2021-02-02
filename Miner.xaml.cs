@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -31,13 +32,14 @@ namespace Crossed_Miner
         // Instance Variables
         private MiningState state = MiningState.STOPPED;
         private const string exeName = "t-rex.exe";
-        private static System.Timers.Timer timer = new System.Timers.Timer(200);
-        private DateTime mineStart = new DateTime();
+        private ProcessStartInfo processStartInfo;
+        private Process process;
 
         public Miner()
         {
             InitializeComponent();
             ReloadUI();
+            SetupProcess();
         }
 
         public void ReloadUI()
@@ -51,6 +53,15 @@ namespace Crossed_Miner
                 StartMiningButton.Content = "Stop Mining";
             }
 
+        }
+
+        private void SetupProcess()
+        {
+            processStartInfo = new ProcessStartInfo();
+            processStartInfo.CreateNoWindow = true;
+            processStartInfo.UseShellExecute = false;
+            processStartInfo.FileName = exeName;
+            processStartInfo.WindowStyle = ProcessWindowStyle.Hidden;
         }
 
         private void StartMiningButton_Click(object sender, RoutedEventArgs e)
@@ -67,41 +78,21 @@ namespace Crossed_Miner
                 return;
             }
 
-            string args = "-a ethash -o stratum+tcp://" + Settings.Server + ":4444 -u " + Settings.Wallet + " -p x -w " + Settings.Worker;
+            processStartInfo.Arguments = "-a ethash --api-bind-telnet 0 --api-bind-http 127.0.0.1:4067 -o stratum+tcp://" + Settings.Server + ":4444 -u " + Settings.Wallet + " -p x -w " + Settings.Worker;
 
             if(state == MiningState.MINING)
             {
-                myConsole.WriteOutput("Stopping Mining", Color.FromRgb(255, 255, 255));
-                StopTimer();
-                myConsole.StopProcess();
+                myConsole.WriteOutput("Stopping Mining\n", Color.FromRgb(255, 255, 255));
                 state = MiningState.STOPPED;
+                process.Kill();
             }
             else
             {
-                myConsole.WriteOutput("Starting Mining", Color.FromRgb(255, 255, 255));
-                myConsole.StartProcess(exeName, args);
+                myConsole.WriteOutput("Starting Mining\n", Color.FromRgb(255, 255, 255));
                 state = MiningState.MINING;
-                StartTimer();
+                process = Process.Start(processStartInfo);
             }
             ReloadUI();
-        }
-
-        private void StartTimer()
-        {
-            timer.Elapsed += OnTimedEvent;
-            timer.AutoReset = true;
-            timer.Enabled = true;
-        }
-
-        private void StopTimer()
-        {
-            timer.AutoReset = false;
-            timer.Enabled = false;
-        }
-
-        private static void OnTimedEvent(Object source, ElapsedEventArgs e)
-        {
-            Console.WriteLine("The Elapsed event was raised at " +  e.SignalTime);
         }
     }
 }
