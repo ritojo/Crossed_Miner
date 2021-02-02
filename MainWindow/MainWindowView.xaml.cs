@@ -13,7 +13,7 @@ namespace Crossed_Miner
             InitializeComponent();
 
             // Load Settings
-            Settings.LoadSettings();
+            //Settings.LoadSettings();
         }
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
