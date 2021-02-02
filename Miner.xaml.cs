@@ -34,6 +34,7 @@ namespace Crossed_Miner
         private const string exeName = "t-rex.exe";
         private ProcessStartInfo processStartInfo;
         private Process process;
+        private PersonalLog personalLog;
 
         public Miner()
         {
@@ -84,13 +85,15 @@ namespace Crossed_Miner
             {
                 myConsole.WriteOutput("Stopping Mining\n", Color.FromRgb(255, 255, 255));
                 state = MiningState.STOPPED;
-                process.Kill();
+                personalLog.StopLogging();
+                //process.Kill();
             }
             else
             {
                 myConsole.WriteOutput("Starting Mining\n", Color.FromRgb(255, 255, 255));
                 state = MiningState.MINING;
-                process = Process.Start(processStartInfo);
+                personalLog = new PersonalLog();
+                //process = Process.Start(processStartInfo);
             }
             ReloadUI();
         }

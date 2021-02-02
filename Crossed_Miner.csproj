@@ -96,6 +96,7 @@
     <Compile Include="Miner.xaml.cs">
       <DependentUpon>Miner.xaml</DependentUpon>
     </Compile>
+    <Compile Include="PersonalLog.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Setup.xaml.cs">
       <DependentUpon>Setup.xaml</DependentUpon>
