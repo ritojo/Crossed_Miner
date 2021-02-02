@@ -4,7 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Crossed_Miner"
-        xmlns:WPF="clr-namespace:ConsoleControl.WPF;assembly=ConsoleControl.WPF" x:Class="Crossed_Miner.MainWindow"
+        xmlns:WPF="clr-namespace:ConsoleControl.WPF;assembly=ConsoleControl.WPF" x:Class="Crossed_Miner.MainWindowView"
         mc:Ignorable="d"
         Title="Wireless Soil Probe Flashing Utility" Height="400" Width="1024" Background="#FF323131" WindowStyle="None" ResizeMode="NoResize" Icon="crossed_swords.png">
     <WindowChrome.WindowChrome>

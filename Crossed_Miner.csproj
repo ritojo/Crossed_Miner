@@ -51,25 +51,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
-  <PropertyGroup>
-    <ManifestCertificateThumbprint>4325034F7B0F9EE548FDAF97AB2468BB6BA20A20</ManifestCertificateThumbprint>
-  </PropertyGroup>
-  <PropertyGroup>
-    <ManifestKeyFile>WSP_Flash_Tool_TemporaryKey.pfx</ManifestKeyFile>
-  </PropertyGroup>
-  <PropertyGroup>
-    <GenerateManifests>true</GenerateManifests>
-  </PropertyGroup>
-  <PropertyGroup>
-    <SignManifests>true</SignManifests>
-  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="ConsoleControl.WPF, Version=1.3.0.0, Culture=neutral, PublicKeyToken=bb812711dbc508e1, processorArchitecture=MSIL">
-      <HintPath>packages\ConsoleControl.WPF.1.3.0\lib\net40-client\ConsoleControl.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="ConsoleControlAPI, Version=1.3.0.0, Culture=neutral, PublicKeyToken=7c86b8a36b9c33e2, processorArchitecture=MSIL">
-      <HintPath>packages\ConsoleControlAPI.1.3.0\lib\net40\ConsoleControlAPI.dll</HintPath>
-    </Reference>
     <Reference Include="Gstc.Collections.Observable">
       <HintPath>.\Gstc.Collections.Observable.dll</HintPath>
     </Reference>
@@ -93,6 +75,20 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Miner\MinerView.xaml.cs">
+      <DependentUpon>MinerView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Miner\MinerViewModel.cs" />
+    <Compile Include="Monitor\MonitorView.xaml.cs">
+      <DependentUpon>MonitorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Monitor\MonitorViewModel.cs" />
+    <Compile Include="Setup\SetupView.xaml.cs">
+      <DependentUpon>SetupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Setup\SetupViewModel.cs" />
+    <Compile Include="Utilities\AObservable.cs" />
+    <Compile Include="MainWindow\MainWindowViewModel.cs" />
     <Compile Include="Miner.xaml.cs">
       <DependentUpon>Miner.xaml</DependentUpon>
     </Compile>
@@ -105,11 +101,15 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Miner\MinerView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Monitor.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="MainWindow\MainWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -120,11 +120,19 @@
     <Compile Include="Monitor.xaml.cs">
       <DependentUpon>Monitor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="MainWindow\MainWindowView.xaml.cs">
+      <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Monitor\MonitorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Setup.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Setup\SetupView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -147,7 +155,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -171,5 +178,6 @@
   <ItemGroup>
     <Resource Include="crossed_swords.png" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
