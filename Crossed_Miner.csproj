@@ -97,6 +97,7 @@
     <Compile Include="Setup.xaml.cs">
       <DependentUpon>Setup.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\RelayCommand.cs" />
     <Page Include="Miner.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

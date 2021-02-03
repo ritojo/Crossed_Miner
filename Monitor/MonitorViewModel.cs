@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Crossed_Miner
+﻿namespace Crossed_Miner
 {
-    class MonitorViewModel
+    public class MonitorViewModel : ObservableBase
     {
+        public MonitorViewModel()
+        {
+
+        }
     }
 }
