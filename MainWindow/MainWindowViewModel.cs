@@ -31,7 +31,7 @@ namespace Crossed_Miner
 
         private void DisplaySetup()
         {
-
+            IsSetupDisplayed = true;
         }
 
         private ICommand closeCommand = null;
@@ -51,6 +51,23 @@ namespace Crossed_Miner
         private void Exit()
         {
             Application.Current.MainWindow.Close();
+        }
+
+        private bool isSetupDisplayed = false;
+        public bool IsSetupDisplayed
+        {
+            get
+            {
+                return isSetupDisplayed;
+            }
+            set
+            {
+                if (isSetupDisplayed != value)
+                {
+                    isSetupDisplayed = value;
+                    OnPropertyChanged("IsSetupDisplayed");
+                }
+            }
         }
     }
 }

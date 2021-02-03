@@ -15,6 +15,9 @@
             <DataTemplate DataType="x:Type MonitorViewModel">
                 <local:MonitorView/>
             </DataTemplate>
+            <DataTemplate DataType="x:Type SetupViewModel">
+                <local:SetupView/>
+            </DataTemplate>
             <Style x:Key="TabItemFocusVisual">
                 <Setter Property="Control.Template">
                     <Setter.Value>
@@ -152,5 +155,8 @@
         <Button x:Name="CloseButton" Content="Close" Command="{Binding CloseCommand}"        HorizontalAlignment="Left" Margin="10,326,0,0" VerticalAlignment="Top" Width="80" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1"/>
         <Button x:Name="SetupButton" Content="Setup" Command="{Binding DisplaySetupCommand}" HorizontalAlignment="Left" Margin="10,282,0,0" VerticalAlignment="Top" Width="80" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1"/>
 
+        <Popup x:Name="SetupPopup" IsOpen="{Binding IsSetupDisplayed}" Placement="Relative" PlacementTarget="{Binding ElementName=SetupButton}">
+            <local:SetupView/>
+        </Popup>
     </Grid>
 </Window>

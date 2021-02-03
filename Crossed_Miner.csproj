@@ -92,17 +92,10 @@
     <Compile Include="MainWindow\MainWindowViewModel.cs" />
     <Compile Include="PersonalLog.cs" />
     <Compile Include="Settings.cs" />
-    <Compile Include="Setup.xaml.cs">
-      <DependentUpon>Setup.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Utilities\RelayCommand.cs" />
     <Page Include="Miner\MinerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Monitor.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="MainWindow\MainWindowView.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -112,18 +105,11 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Monitor.xaml.cs">
-      <DependentUpon>Monitor.xaml</DependentUpon>
-    </Compile>
     <Compile Include="MainWindow\MainWindowView.xaml.cs">
       <DependentUpon>MainWindowView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Monitor\MonitorView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Setup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

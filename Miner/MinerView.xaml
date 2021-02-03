@@ -8,6 +8,9 @@
              d:DesignHeight="375" d:DesignWidth="924"
              Background="#FF323131">
     <UserControl.Resources>
+        <DataTemplate DataType="x:Type local:SetupViewModel">
+            <local:SetupView/>
+        </DataTemplate>
         <Style x:Key="ButtonFocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -73,5 +76,8 @@
             <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
         <ToggleButton IsChecked="{Binding IsMining}" Content="Mining State" HorizontalAlignment="Left" Margin="108,12,0,0" VerticalAlignment="Top" Width="130" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" Command="{Binding ToggleMiningCommand}" Style="{DynamicResource ToggleButtonStyle1}"/>
+        <Popup IsOpen="{Binding IsSetupDisplayed}">
+            <local:SetupView/>
+        </Popup>
     </Grid>
 </UserControl>

@@ -22,6 +22,7 @@ namespace Crossed_Miner
     {
         public SetupView()
         {
+            DataContext = new SetupViewModel();
             InitializeComponent();
         }
     }

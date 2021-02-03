@@ -86,12 +86,28 @@ namespace Crossed_Miner
             //process.Kill();
         }
 
+        private bool isSetupDisplayed = false;
+        public bool IsSetupDisplayed
+        {
+            get
+            {
+                return isSetupDisplayed;
+            }
+            set
+            {
+                if (isSetupDisplayed != value)
+                {
+                    isSetupDisplayed = value;
+                    OnPropertyChanged("IsSetupDisplayed");
+                }
+            }
+        }
+
         private void CheckSettings()
         {
             if (Settings.Server == null || Settings.Wallet == null || Settings.Worker == null)
             {
-                Setup setupWindow = new Setup();
-                setupWindow.ShowDialog();
+                IsSetupDisplayed = true;
             }
         }
     }
