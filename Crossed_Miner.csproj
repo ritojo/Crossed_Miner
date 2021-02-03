@@ -79,6 +79,7 @@
       <DependentUpon>MinerView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Miner\MinerViewModel.cs" />
+    <Compile Include="Miner\MiningState.cs" />
     <Compile Include="Monitor\MonitorView.xaml.cs">
       <DependentUpon>MonitorView.xaml</DependentUpon>
     </Compile>
@@ -89,19 +90,12 @@
     <Compile Include="Setup\SetupViewModel.cs" />
     <Compile Include="Utilities\AObservable.cs" />
     <Compile Include="MainWindow\MainWindowViewModel.cs" />
-    <Compile Include="Miner.xaml.cs">
-      <DependentUpon>Miner.xaml</DependentUpon>
-    </Compile>
     <Compile Include="PersonalLog.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Setup.xaml.cs">
       <DependentUpon>Setup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Utilities\RelayCommand.cs" />
-    <Page Include="Miner.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Miner\MinerView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
