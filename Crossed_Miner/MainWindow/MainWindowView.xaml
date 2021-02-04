@@ -9,15 +9,6 @@
         Title="Crossed Swords - Ethereum Miner" Height="400" Width="1024" Background="#FF323131" WindowStyle="None" ResizeMode="NoResize" Icon="crossed_swords.png">
     <Window.Resources>
         <ResourceDictionary>
-            <DataTemplate x:Key="MinerViewModelName" DataType="x:Type MinerViewModel">
-                <local:MinerView/>
-            </DataTemplate>
-            <DataTemplate x:Key="MonitorViewModelName" DataType="x:Type MonitorViewModel">
-                <local:MonitorView/>
-            </DataTemplate>
-            <DataTemplate x:Key="SetupViewModelName" DataType="x:Type SetupViewModel">
-                <local:SetupView/>
-            </DataTemplate>
             <Style x:Key="TabItemFocusVisual">
                 <Setter Property="Control.Template">
                     <Setter.Value>
@@ -145,7 +136,7 @@
                 <DropShadowBitmapEffect Color="Black" Direction="270"/>
             </TabControl.BitmapEffect>
             <TabItem Header="Miner" Width="100" Height="65" Background="#FF323131" Foreground="White" BorderBrush="{x:Null}">
-                <local:MinerView/>
+                <local:MinerView DataContext="{Binding CurrentMinerViewModel}"/>
             </TabItem>
             <TabItem Header="Monitor" Width="100" Height="65" Background="#FF323131" Foreground="White" BorderBrush="{x:Null}">
                 <local:MonitorView/>
@@ -156,7 +147,7 @@
         <Button x:Name="SetupButton" Content="Setup" Command="{Binding DisplaySetupCommand}" HorizontalAlignment="Left" Margin="10,282,0,0" VerticalAlignment="Top" Width="80" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1"/>
 
         <Popup x:Name="SetupPopup" IsOpen="{Binding IsSetupDisplayed}" Placement="Relative" PlacementTarget="{Binding ElementName=SetupButton}" AllowsTransparency="True">
-            <local:SetupView DataContext="{Binding SetupViewModel}"/>
+            <local:SetupView DataContext="{Binding CurrentSetupViewModel}"/>
         </Popup>
     </Grid>
 </Window>

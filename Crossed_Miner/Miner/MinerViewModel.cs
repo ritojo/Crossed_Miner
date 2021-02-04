@@ -10,9 +10,12 @@ namespace Crossed_Miner
         private ProcessStartInfo processStartInfo;
         //private Process process;
         private PersonalLog personalLog;
+        private MiningConfig miningConfig;
 
-        public MinerViewModel()
+        public MinerViewModel(MiningConfig config)
         {
+            miningConfig = config;
+
             processStartInfo = new ProcessStartInfo()
             {
                 CreateNoWindow = true,
@@ -70,10 +73,11 @@ namespace Crossed_Miner
             if (!System.IO.File.Exists(exeName))
             {
                 MessageBox.Show(Application.Current.MainWindow, "You must add t-rex.exe to this folder before mining.", "You Suck", MessageBoxButton.OK, MessageBoxImage.Information);
+                IsMining = false;
                 return;
             }
 
-            CheckSettings();
+            CheckSettings(miningConfig); //Pass as dependency for unit testing purposes if we want
 
             //processStartInfo.Arguments = "-a ethash --api-bind-telnet 0 --api-bind-http 127.0.0.1:4067 -o stratum+tcp://" + Settings.Server + ":4444 -u " + Settings.Wallet + " -p x -w " + Settings.Worker;
             personalLog = new PersonalLog();
@@ -103,12 +107,12 @@ namespace Crossed_Miner
             }
         }
 
-        private void CheckSettings()
+        private void CheckSettings(MiningConfig config)
         {
-            //if (Settings.Server == null || Settings.Wallet == null || Settings.Worker == null)
-            //{
-            //    IsSetupDisplayed = true;
-            //}
+            if (string.IsNullOrWhiteSpace(config.Server) || (string.IsNullOrWhiteSpace(config.Worker)) || (string.IsNullOrWhiteSpace(config.WalletID)))
+            {
+                IsSetupDisplayed = true;
+            }
         }
     }
 }

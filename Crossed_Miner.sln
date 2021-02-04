@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30114.105
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossed_Miner", "Crossed_Miner.csproj", "{A2821351-084E-48DA-AFE5-4AEFE35DDDFF}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Crossed_Miner", "Crossed_Miner\Crossed_Miner.csproj", "{A2821351-084E-48DA-AFE5-4AEFE35DDDFF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTest.Crossed_Miner", "UnitTest.Crossed_Miner\UnitTest.Crossed_Miner.csproj", "{3D638810-73D6-4963-93F5-0A3884400133}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{A2821351-084E-48DA-AFE5-4AEFE35DDDFF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2821351-084E-48DA-AFE5-4AEFE35DDDFF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2821351-084E-48DA-AFE5-4AEFE35DDDFF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D638810-73D6-4963-93F5-0A3884400133}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D638810-73D6-4963-93F5-0A3884400133}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D638810-73D6-4963-93F5-0A3884400133}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D638810-73D6-4963-93F5-0A3884400133}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

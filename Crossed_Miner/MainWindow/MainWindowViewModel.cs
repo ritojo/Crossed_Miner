@@ -72,19 +72,19 @@ namespace Crossed_Miner
             }
         }
 
-        private MiningConfig miningConfig = null;
-        public MiningConfig MiningConfig
+        private MiningConfig currentMiningConfig = null;
+        public MiningConfig CurrentMiningConfig
         {
             get
             {
-                if (miningConfig == null)
+                if (currentMiningConfig == null)
                 {
                     try
                     {
                         using (StreamReader file = File.OpenText(Settings.Default.MiningConfigFile))
                         {
                             JsonSerializer serializer = new JsonSerializer();
-                            miningConfig = (MiningConfig)serializer.Deserialize(file, typeof(MiningConfig));
+                            currentMiningConfig = (MiningConfig)serializer.Deserialize(file, typeof(MiningConfig));
                         }
                     }
                     catch (Exception e)
@@ -94,24 +94,38 @@ namespace Crossed_Miner
                     }
                 }
 
-                return miningConfig;
+                return currentMiningConfig;
             }
         }
 
-        private SetupViewModel setupViewModel = null;
-        public SetupViewModel SetupViewModel
+        private SetupViewModel currentSetupViewModel = null;
+        public SetupViewModel CurrentSetupViewModel
         {
             get
             {
-                if (setupViewModel == null)
+                if (currentSetupViewModel == null)
                 {
-                    setupViewModel = new SetupViewModel();
-                    setupViewModel.Initialize(MiningConfig);
-                    setupViewModel.SavedSettingsEvent += SetupSettingsSavedHandler;
-                    setupViewModel.CancelSettingsEvent += SetupSettingsNotSavedHandler;
+                    currentSetupViewModel = new SetupViewModel();
+                    currentSetupViewModel.Initialize(CurrentMiningConfig);
+                    currentSetupViewModel.SavedSettingsEvent += SetupSettingsSavedHandler;
+                    currentSetupViewModel.CancelSettingsEvent += SetupSettingsNotSavedHandler;
                 }
 
-                return setupViewModel;
+                return currentSetupViewModel;
+            }
+        }
+
+        private MinerViewModel currentMinerViewModel = null;
+        public MinerViewModel CurrentMinerViewModel
+        {
+            get
+            {
+                if (currentMinerViewModel == null)
+                {
+                    currentMinerViewModel = new MinerViewModel(CurrentMiningConfig);
+                }
+
+                return currentMinerViewModel;
             }
         }
 
@@ -123,9 +137,9 @@ namespace Crossed_Miner
         private void SetupSettingsSavedHandler(object sender, SetupEventArgs e)
         {
             //Copy info over from the event in the SetupViewModel
-            MiningConfig.Server = e.Server;
-            MiningConfig.Worker = e.Worker;
-            MiningConfig.WalletID = e.WalletID;
+            CurrentMiningConfig.Server = e.Server;
+            CurrentMiningConfig.Worker = e.Worker;
+            CurrentMiningConfig.WalletID = e.WalletID;
 
             //Close the window
             IsSetupDisplayed = false;
@@ -140,7 +154,7 @@ namespace Crossed_Miner
         /// <param name="e"></param>
         private void SetupSettingsNotSavedHandler(object sender, EventArgs e)
         {
-            SetupViewModel.Initialize(MiningConfig);
+            CurrentSetupViewModel.Initialize(CurrentMiningConfig);
             IsSetupDisplayed = false;
         }
 
@@ -151,7 +165,7 @@ namespace Crossed_Miner
             using (JsonWriter writer = new JsonTextWriter(sw))
             {
                 writer.Formatting = Formatting.Indented;
-                serializer.Serialize(writer, MiningConfig, typeof(MiningConfig));
+                serializer.Serialize(writer, CurrentMiningConfig, typeof(MiningConfig));
             }
         }
     }

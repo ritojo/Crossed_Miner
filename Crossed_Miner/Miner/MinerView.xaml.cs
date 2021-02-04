@@ -9,7 +9,6 @@ namespace Crossed_Miner
     {
         public MinerView()
         {
-            DataContext = new MinerViewModel();
             InitializeComponent();
         }
     }
