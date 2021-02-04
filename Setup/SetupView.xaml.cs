@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Crossed_Miner
 {
     /// <summary>
-    /// Interaction logic for FlashTool.xaml
+    /// Interaction logic for SetupView.xaml
     /// </summary>
-    public partial class Monitor : Page
+    public partial class SetupView : UserControl
     {
-        public Monitor()
+        public SetupView()
         {
             InitializeComponent();
         }
