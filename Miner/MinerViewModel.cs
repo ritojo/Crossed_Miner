@@ -75,7 +75,7 @@ namespace Crossed_Miner
 
             CheckSettings();
 
-            processStartInfo.Arguments = "-a ethash --api-bind-telnet 0 --api-bind-http 127.0.0.1:4067 -o stratum+tcp://" + Settings.Server + ":4444 -u " + Settings.Wallet + " -p x -w " + Settings.Worker;
+            //processStartInfo.Arguments = "-a ethash --api-bind-telnet 0 --api-bind-http 127.0.0.1:4067 -o stratum+tcp://" + Settings.Server + ":4444 -u " + Settings.Wallet + " -p x -w " + Settings.Worker;
             personalLog = new PersonalLog();
             //process = Process.Start(processStartInfo);
         }
@@ -105,10 +105,10 @@ namespace Crossed_Miner
 
         private void CheckSettings()
         {
-            if (Settings.Server == null || Settings.Wallet == null || Settings.Worker == null)
-            {
-                IsSetupDisplayed = true;
-            }
+            //if (Settings.Server == null || Settings.Wallet == null || Settings.Worker == null)
+            //{
+            //    IsSetupDisplayed = true;
+            //}
         }
     }
 }

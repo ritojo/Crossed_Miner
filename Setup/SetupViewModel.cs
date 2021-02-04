@@ -1,9 +1,5 @@
 ﻿using Gstc.Collections.Observable;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace Crossed_Miner
@@ -13,6 +9,13 @@ namespace Crossed_Miner
         public SetupViewModel()
         {
 
+        }
+
+        public void Initialize(MiningConfig config)
+        {
+            ChosenServer = config.Server;
+            Worker = config.Worker;
+            WalletID = config.WalletID;
         }
 
         private ObservableList<string> serverList = null;
@@ -36,6 +39,62 @@ namespace Crossed_Miner
             }
         }
 
+        private string chosenServer = string.Empty;
+        public string ChosenServer
+        {
+            get
+            {
+                if (chosenServer == string.Empty)
+                {
+                    chosenServer = ServerList[0];
+                }
+
+                return chosenServer;
+            }
+            set
+            { 
+                if (chosenServer != value)
+                {
+                    chosenServer = value;
+                    OnPropertyChanged("ChosenServer");
+                }
+            }
+        }
+
+        private string worker = string.Empty;
+        public string Worker
+        {
+            get
+            {
+                return worker;
+            }
+            set
+            {
+                if (worker != value)
+                {
+                    worker = value;
+                    OnPropertyChanged("Worker");
+                }
+            }
+        }
+
+        private string walletID = string.Empty;
+        public string WalletID
+        {
+            get
+            {
+                return walletID;
+            }
+            set
+            {
+                if (walletID != value)
+                {
+                    walletID = value;
+                    OnPropertyChanged("WalletID");
+                }
+            }
+        }
+
         private ICommand saveSettingsCommand = null;
         public ICommand SaveSettingsCommand
         {
@@ -52,23 +111,18 @@ namespace Crossed_Miner
 
         private void SaveSettings()
         {
-            //if (serverComboBox.SelectedItem != null)
-            //{
-            //    Settings.Server = serverComboBox.SelectedItem.ToString();
-            //}
-            //
-            //if (walletTextBox.Text != null)
-            //{
-            //    Settings.Wallet = walletTextBox.Text;
-            //}
-            //
-            //if (workerTextBox.Text != null)
-            //{
-            //    Settings.Worker = workerTextBox.Text;
-            //}
-            //
-            //Settings.SaveSettings();
-            //this.Close();
+            //Error check what the user put in
+            if ((ChosenServer != null) && (Worker != null) && (WalletID != null))
+            {
+                //Invoke the event to kick the info back to the event subscriber
+                OnSaveSettings(new SetupEventArgs(ChosenServer, Worker, WalletID));
+            }
+        }
+
+        public event EventHandler<SetupEventArgs> SavedSettingsEvent;
+        private void OnSaveSettings(SetupEventArgs e)
+        {
+            SavedSettingsEvent?.Invoke(this, e);
         }
 
         private ICommand cancelSettingsCommand = null;
@@ -87,7 +141,13 @@ namespace Crossed_Miner
 
         private void CancelSettings()
         {
-            //TODO: close out view
+            OnCancelSettings(EventArgs.Empty);
+        }
+
+        public event EventHandler<EventArgs> CancelSettingsEvent;
+        private void OnCancelSettings(EventArgs e)
+        {
+            CancelSettingsEvent?.Invoke(this, e);
         }
     }
 }
