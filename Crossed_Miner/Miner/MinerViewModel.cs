@@ -87,7 +87,7 @@ namespace Crossed_Miner
                         {
                             wc.UseDefaultCredentials = true;
                             wc.DownloadProgressChanged += wc_DownloadProgressChanged;
-                            wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted); ;
+                            wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
                             wc.DownloadFileAsync( new System.Uri("https://github.com/trexminer/T-Rex/releases/download/0.19.9/t-rex-0.19.9-win-cuda11.1.zip"), "./t-rex.zip");
                         }
 
@@ -95,7 +95,7 @@ namespace Crossed_Miner
 
                     case MessageBoxResult.No:
                     default:
-                        MessageBox.Show(Application.Current.MainWindow, "No mining for you then!", "Really Suck", MessageBoxButton.OK, MessageBoxImage.Error);
+                        MessageBox.Show(Application.Current.MainWindow, "No mining for you then!", "You Really Suck", MessageBoxButton.OK, MessageBoxImage.Error);
                         isMining = false;
                         break;
                 }
