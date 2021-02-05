@@ -3,7 +3,7 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:oxy="http://oxyplot.org/wpf"
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:Crossed_Miner"
              mc:Ignorable="d" 
              d:DesignHeight="375" d:DesignWidth="924"
@@ -66,15 +66,27 @@
     </UserControl.Resources>
     <Grid Grid.Row="1" HorizontalAlignment="Left" Height="375" Margin="0,0,0,0" VerticalAlignment="Top" Width="924">
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="345"/>
-            <ColumnDefinition Width="679"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
-            <RowDefinition Height="300"/>
-            <RowDefinition Height="75"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <oxy:PlotView DataContext="{Binding MiningPlot}"/>
-        <ToggleButton IsChecked="{Binding IsMining}" Content="Mining State" HorizontalAlignment="Left" Margin="108,12,0,0" VerticalAlignment="Top" Width="130" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" Command="{Binding ToggleMiningCommand}" Style="{DynamicResource ToggleButtonStyle1}"/>
+        <lvc:AngularGauge Width="300" Height="300" Grid.RowSpan="2" Margin="15" Grid.Row="0" Grid.Column="0" Value="{Binding CurrentHashRate}" LabelsStep="5" TicksStep="5" SectionsInnerRadius="0.5" TicksForeground="AntiqueWhite" Foreground="AntiqueWhite">
+            <lvc:AngularGauge.Sections>
+                <lvc:AngularSection FromValue="0" ToValue="100" Fill="#FF707070"/>
+            </lvc:AngularGauge.Sections>
+        </lvc:AngularGauge>
+        <Label Grid.Row="2" Grid.Column="1" Content="Total Hashes" Margin="10"  Foreground="White"/>
+        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding HashCount}" Margin="10" Background="#FF707070"/>
+        <Label Grid.Row="2" Grid.Column="3" Content="Session Duration" Margin="10" Foreground="White"/>
+        <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding SessionDurationSeconds}" Margin="10" Background="#FF707070"/>
+        <ToggleButton IsChecked="{Binding IsMining}" Content="Mining State" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="10" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="2" Command="{Binding ToggleMiningCommand}" Style="{DynamicResource ToggleButtonStyle1}"/>
         <Popup IsOpen="{Binding IsSetupDisplayed}">
             <local:SetupView DataContext="{Binding CurrentMinerSetupViewModel}"/>
         </Popup>

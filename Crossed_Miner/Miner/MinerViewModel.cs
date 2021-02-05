@@ -1,6 +1,4 @@
 ﻿using Newtonsoft.Json;
-using OxyPlot;
-using OxyPlot.Series;
 using System;
 using System.Diagnostics;
 using System.IO;
@@ -30,24 +28,55 @@ namespace Crossed_Miner
             };
         }
 
-        private PlotModel miningPlot = null;
-        public PlotModel MiningPlot
+        private double currentHashRate = 0.0;
+        public double CurrentHashRate
         {
             get
             {
-                if (miningPlot == null)
-                {
-                    miningPlot = new PlotModel() { Title = "TestPlot" };
-                    miningPlot.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
-                    miningPlot.InvalidatePlot(true);
-                }
-
-                return miningPlot;
+                return currentHashRate;
             }
             set
             {
-                miningPlot = value;
-                OnPropertyChanged("MiningPlot");
+                if (currentHashRate != value)
+                {
+                    currentHashRate = value;
+                    OnPropertyChanged("CurrentHashRate");
+                }
+            }
+        }
+
+        private double totalHashes = 0.0;
+        public double TotalHashes
+        {
+            get
+            {
+                return totalHashes;
+            }
+            set
+            {
+                if (totalHashes != value)
+                {
+                    totalHashes = value;
+                    OnPropertyChanged("TotalHashes");
+                }
+            }
+        }
+
+        private double sessionDurationSeconds = 0.0;
+        public double SessionDurationSeconds
+        {
+            get
+            {
+                //TODO: format into h/m/s, but store as seconds
+                return sessionDurationSeconds;
+            }
+            set
+            {
+                if (sessionDurationSeconds != value)
+                {
+                    sessionDurationSeconds = value;
+                    OnPropertyChanged("SessionDurationSeconds");
+                }
             }
         }
 
