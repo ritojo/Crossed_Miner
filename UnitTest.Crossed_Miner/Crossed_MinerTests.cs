@@ -8,14 +8,14 @@ namespace UnitTest.Crossed_Miner
     [TestClass]
     public class Crossed_MinerTests
     {
-        [DataRow (1)]
-        [DataRow (5)]
+        [DataRow(1)]
+        [DataRow(5)]
         [TestMethod]
         public void SetupViewModel_EventFiresWhenExpected(int numberOfTimesEventIsFired)
         {
             List<string> receivedEvents = new List<string>();
             SetupViewModel setupVM = new SetupViewModel();
-            setupVM.SavedSettingsEvent += delegate(object sender, SetupEventArgs e)
+            setupVM.SavedSettingsEvent += delegate (object sender, SetupEventArgs e)
             {
                 receivedEvents.Add(e.Server); //Adds the number of times we get setup info back, confirming the EventHandling works as intended
             };
@@ -36,7 +36,7 @@ namespace UnitTest.Crossed_Miner
             MiningConfig newConfig = new MiningConfig() { Server = "DifferentServer", WalletID = "DifferentWalletID", Worker = "DifferentWorker" };
 
             SetupViewModel setupVM = new SetupViewModel();
-            setupVM.SavedSettingsEvent += delegate (object sender, SetupEventArgs e) 
+            setupVM.SavedSettingsEvent += delegate (object sender, SetupEventArgs e)
             {
                 eventConfig.Server = e.Server;
                 eventConfig.Worker = e.Worker;
@@ -67,7 +67,7 @@ namespace UnitTest.Crossed_Miner
             MiningConfig newConfig = new MiningConfig() { Server = "DifferentServer", WalletID = "DifferentWalletID", Worker = "DifferentWorker" };
 
             SetupViewModel setupVM = new SetupViewModel();
-            setupVM.CancelSettingsEvent += delegate (object sender, EventArgs e) 
+            setupVM.CancelSettingsEvent += delegate (object sender, EventArgs e)
             {
                 setupVM.Initialize(initialConfig);
             };
