@@ -2,15 +2,13 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:oxy="http://oxyplot.org/wpf"
              xmlns:local="clr-namespace:Crossed_Miner"
              mc:Ignorable="d" 
              d:DesignHeight="375" d:DesignWidth="924"
              Background="#FF323131">
     <UserControl.Resources>
-        <DataTemplate DataType="x:Type local:SetupViewModel">
-            <local:SetupView/>
-        </DataTemplate>
         <Style x:Key="ButtonFocusVisual">
             <Setter Property="Control.Template">
                 <Setter.Value>
@@ -75,9 +73,10 @@
             <RowDefinition Height="300"/>
             <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
+        <oxy:PlotView DataContext="{Binding MiningPlot}"/>
         <ToggleButton IsChecked="{Binding IsMining}" Content="Mining State" HorizontalAlignment="Left" Margin="108,12,0,0" VerticalAlignment="Top" Width="130" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" Command="{Binding ToggleMiningCommand}" Style="{DynamicResource ToggleButtonStyle1}"/>
         <Popup IsOpen="{Binding IsSetupDisplayed}">
-            <local:SetupView/>
+            <local:SetupView DataContext="{Binding CurrentMinerSetupViewModel}"/>
         </Popup>
     </Grid>
 </UserControl>

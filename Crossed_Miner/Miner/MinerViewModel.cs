@@ -1,4 +1,9 @@
-﻿using System.Diagnostics;
+﻿using Newtonsoft.Json;
+using OxyPlot;
+using OxyPlot.Series;
+using System;
+using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Input;
 
@@ -23,6 +28,27 @@ namespace Crossed_Miner
                 FileName = exeName,
                 WindowStyle = ProcessWindowStyle.Hidden
             };
+        }
+
+        private PlotModel miningPlot = null;
+        public PlotModel MiningPlot
+        {
+            get
+            {
+                if (miningPlot == null)
+                {
+                    miningPlot = new PlotModel() { Title = "TestPlot" };
+                    miningPlot.Series.Add(new FunctionSeries(Math.Cos, 0, 10, 0.1, "cos(x)"));
+                    miningPlot.InvalidatePlot(true);
+                }
+
+                return miningPlot;
+            }
+            set
+            {
+                miningPlot = value;
+                OnPropertyChanged("MiningPlot");
+            }
         }
 
         private bool isMining = false;
@@ -112,6 +138,63 @@ namespace Crossed_Miner
             if (string.IsNullOrWhiteSpace(config.Server) || (string.IsNullOrWhiteSpace(config.Worker)) || (string.IsNullOrWhiteSpace(config.WalletID)))
             {
                 IsSetupDisplayed = true;
+            }
+        }
+
+        private SetupViewModel currentMinerSetupViewModel = null;
+        public SetupViewModel CurrentMinerSetupViewModel
+        {
+            get
+            {
+                if (currentMinerSetupViewModel == null)
+                {
+                    currentMinerSetupViewModel = new SetupViewModel();
+                    currentMinerSetupViewModel.Initialize(miningConfig);
+                    currentMinerSetupViewModel.SavedSettingsEvent += SetupSettingsSavedHandler;
+                    currentMinerSetupViewModel.CancelSettingsEvent += SetupSettingsNotSavedHandler;
+                }
+
+                return currentMinerSetupViewModel;
+            }
+        }
+
+        /// <summary>
+        /// This function is subscribed to the SetupViewModel event. When the event is invoked, this function will pull in Setup info
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetupSettingsSavedHandler(object sender, SetupEventArgs e)
+        {
+            //Copy info over from the event in the SetupViewModel
+            miningConfig.Server = e.Server;
+            miningConfig.Worker = e.Worker;
+            miningConfig.WalletID = e.WalletID;
+
+            //Close the window
+            IsSetupDisplayed = false;
+
+            WriteMiningConfigToFile();
+        }
+
+        /// <summary>
+        /// Revert settings displayed back to the config and close
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void SetupSettingsNotSavedHandler(object sender, EventArgs e)
+        {
+            CurrentMinerSetupViewModel.Initialize(miningConfig);
+            IsSetupDisplayed = false;
+        }
+
+        private void WriteMiningConfigToFile()
+        {
+            JsonSerializer serializer = new JsonSerializer();
+            using (StreamWriter sw = new StreamWriter(Settings.Default.MiningConfigFile))
+            using (JsonWriter writer = new JsonTextWriter(sw))
+            {
+                writer.Formatting = Formatting.Indented;
+                serializer.Serialize(writer, miningConfig, typeof(MiningConfig));
             }
         }
     }
