@@ -509,4 +509,60 @@ namespace Crossed_Miner.Monitor
         public string Ip { get; set; }
     }
     #endregion
+
+    #region MinerCurrentStats
+    internal class MinerCurrentStatsResponse
+    {
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("data")]
+        public MinerCurrentStatsData Data { get; set; }
+    }
+
+    internal class MinerCurrentStatsData
+    {
+        [JsonProperty("time")]
+        public int Time { get; set; }
+
+        [JsonProperty("lastSeen")]
+        public int LastSeen { get; set; }
+
+        [JsonProperty("reportedHashrate")]
+        public int ReportedHashrate { get; set; }
+
+        [JsonProperty("currentHashrate")]
+        public double CurrentHashrate { get; set; }
+
+        [JsonProperty("validShares")]
+        public int ValidShares { get; set; }
+
+        [JsonProperty("invalidShares")]
+        public int InvalidShares { get; set; }
+
+        [JsonProperty("staleShares")]
+        public int StaleShares { get; set; }
+
+        [JsonProperty("averageHashrate")]
+        public double AverageHashrate { get; set; }
+
+        [JsonProperty("activeWorkers")]
+        public int ActiveWorkers { get; set; }
+
+        [JsonProperty("unpaid")]
+        public long Unpaid { get; set; }
+
+        [JsonProperty("unconfirmed")]
+        public object Unconfirmed { get; set; }
+
+        [JsonProperty("coinsPerMin")]
+        public double CoinsPerMin { get; set; }
+
+        [JsonProperty("usdPerMin")]
+        public double UsdPerMin { get; set; }
+
+        [JsonProperty("btcPerMin")]
+        public double BtcPerMin { get; set; }
+    }
+    #endregion
 }
