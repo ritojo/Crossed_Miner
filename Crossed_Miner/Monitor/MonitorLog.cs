@@ -15,7 +15,22 @@ namespace Crossed_Miner.Monitor
         //Instance Variables
         public Task task;
         public bool taskRunning = false;
-        public Log RunLog;
+
+        // Log Files
+        public PoolStatsResponse PoolStats { get; private set; }
+        public BlocksHistoryResponse BlocksHistory { get; private set; }
+        public NetworkStatsResponse NetworkStats { get; private set; }
+        public ServerHistoryResponse ServerHistory { get; private set; }
+        public MinerDashboardResponse MinerDashboard { get; private set; }
+        public MinerHistoryResponse MinerHistory { get; private set; }
+        public MinerPayoutsResponse MinerPayouts { get; private set; }
+        public MinerRoundsResponse MinerRounds { get; private set; }
+        public MinerSettingsResponse MinerSettings { get; private set; }
+        public MinerCurrentStatsResponse MinerCurrentStats { get; private set; }
+        public WorkersResponse Workers { get; private set; }
+        public IList<IndividualHistoricalWorkerStatsResponse> IndividualHistoricalWorkerStats { get; private set; }
+        public IList<IndividualWorkerStatsResponse> IndividualWorkerStats { get; private set; }
+        public WorkersMonitorResponse WorkersMonitor { get; private set; }
 
         private Timer logTimer;
         private MiningConfig monitorConfig;
@@ -38,9 +53,10 @@ namespace Crossed_Miner.Monitor
 
         // Worker Commands
         private string workerStatisticsCommand;
-        private string workerIndividualHistoricalStatisticsCommand;
-        private string workerIndividualStatisticsCommand;
-        private string workermonitorCommand;
+
+        private List<string> workerIndividualHistoricalStatisticsCommands = new List<string>();
+        private List<string> workerIndividualStatisticsCommands = new List<string>();
+        private string workersMonitorCommand;
 
         public MonitorLog(MiningConfig config)
         {
@@ -49,8 +65,6 @@ namespace Crossed_Miner.Monitor
             //Spawn Task
             task = new Task(LoggerTask);
             task.Start();
-            //Log testLog = JsonConvert.DeserializeObject<Log>(test);
-            Console.WriteLine("Test");
         }
 
         public void StopLogging()
@@ -62,11 +76,15 @@ namespace Crossed_Miner.Monitor
         {
             taskRunning = true;
 
+            // Collect all of the data once now, then again at
+            // different timer intervals
+            CollectDataFromApi();
+
             // There is a limit of 100 requests every 15 minutes.
             // Data is cached for 2 minutes, so there is no
             // point in more frequent requests. We need to setup
             // a timer to handle this.
-            logTimer = new Timer(119000);
+            logTimer = new Timer(180000);
             logTimer.Elapsed += TimerEvent;
             logTimer.AutoReset = true;
             logTimer.Enabled = true;
@@ -74,46 +92,88 @@ namespace Crossed_Miner.Monitor
             while (taskRunning)
             {
                 // Get Log Data
-                string privateData = GetData();
-                RunLog = JsonConvert.DeserializeObject<Log>(privateData);
-
-                // There is a limit of 100 requests every 15 minutes.
-                // Data is cached for 2 minutes, so there is no
-                // point in more frequent requests. We need to setup
-                // a timer to handle this.
+                //string privateData = GetData();
+                //RunLog = JsonConvert.DeserializeObject<Log>(privateData);
                 Task.Delay(200);
             }
         }
 
-        private static void TimerEvent(Object source, ElapsedEventArgs e)
+        private void TimerEvent(Object source, ElapsedEventArgs e)
         {
-
+            // Collect Data From API
+            CollectDataFromApi();
         }
 
-        private string GetData()
+        private void CollectDataFromApi()
         {
-            //HttpWebRequest request = (HttpWebRequest)WebRequest.Create("http://127.0.0.1:4067/summary");
-            //try
-            //{
-            //    WebResponse response = request.GetResponse();
-            //    using (Stream responseStream = response.GetResponseStream())
-            //    {
-            //        StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
-            //        return reader.ReadToEnd();
-            //    }
-            //}
-            //catch (WebException ex)
-            //{
-            //    WebResponse errorResponse = ex.Response;
-            //    using (Stream responseStream = errorResponse.GetResponseStream())
-            //    {
-            //        StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.GetEncoding("utf-8"));
-            //        String errorText = reader.ReadToEnd();
-            //        // log errorText
-            //    }
-            //    throw;
-            //}
-            return String.Empty;
+            // Locals
+            string apiReturn;
+
+            // Get Pool Information
+            apiReturn = GetData(poolStatsCommand);
+            PoolStats = JsonConvert.DeserializeObject<PoolStatsResponse>(apiReturn);
+
+            apiReturn = GetData(blocksHistoryCommand);
+            BlocksHistory = JsonConvert.DeserializeObject<BlocksHistoryResponse>(apiReturn);
+
+            apiReturn = GetData(networkStatsCommand);
+            NetworkStats = JsonConvert.DeserializeObject<NetworkStatsResponse>(apiReturn);
+
+            apiReturn = GetData(serverHistoryCommand);
+            ServerHistory = JsonConvert.DeserializeObject<ServerHistoryResponse>(apiReturn);
+
+            // Build miner commands
+            BuildMinerCommands();
+
+            // Get Miner Information
+            apiReturn = GetData(minerDashboardCommand);
+            MinerDashboard = JsonConvert.DeserializeObject<MinerDashboardResponse>(apiReturn);
+
+            apiReturn = GetData(minerHistoryCommand);
+            MinerHistory = JsonConvert.DeserializeObject<MinerHistoryResponse>(apiReturn);
+
+            apiReturn = GetData(minerPayoutsCommand);
+            MinerPayouts = JsonConvert.DeserializeObject<MinerPayoutsResponse>(apiReturn);
+
+            apiReturn = GetData(minerRoundsCommand);
+            MinerRounds = JsonConvert.DeserializeObject<MinerRoundsResponse>(apiReturn);
+
+            apiReturn = GetData(minerSettingsCommand);
+            MinerSettings = JsonConvert.DeserializeObject<MinerSettingsResponse>(apiReturn);
+
+            apiReturn = GetData(minerStatisticsCommand);
+            MinerCurrentStats = JsonConvert.DeserializeObject<MinerCurrentStatsResponse>(apiReturn);
+
+            // Get Worker Data
+            BuildWorkerCommands();
+            apiReturn = GetData(workersMonitorCommand);
+            WorkersMonitor = JsonConvert.DeserializeObject<WorkersMonitorResponse>(apiReturn);
+        }
+
+        public string GetData(string command)
+        {
+            string fullCommand = apiUri + command;
+            HttpWebRequest request = (HttpWebRequest)WebRequest.Create(fullCommand);
+            try
+            {
+                WebResponse response = request.GetResponse();
+                using (Stream responseStream = response.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.UTF8);
+                    return reader.ReadToEnd();
+                }
+            }
+            catch (WebException ex)
+            {
+                WebResponse errorResponse = ex.Response;
+                using (Stream responseStream = errorResponse.GetResponseStream())
+                {
+                    StreamReader reader = new StreamReader(responseStream, System.Text.Encoding.GetEncoding("utf-8"));
+                    String errorText = reader.ReadToEnd();
+                    return String.Empty;
+                }
+                throw;
+            }
         }
 
         private void BuildMinerCommands()
@@ -131,7 +191,17 @@ namespace Crossed_Miner.Monitor
 
         private void BuildWorkerCommands()
         {
+            string apiReturn;
+            if(monitorConfig.WalletID != null)
+            {
+                // First need the workers list.
+                workerStatisticsCommand = "/miner/" + monitorConfig.WalletID + "/workers";
+                apiReturn = GetData(workerStatisticsCommand);
+                Workers = JsonConvert.DeserializeObject<WorkersResponse>(apiReturn);
 
+                // Last, the workers monitor command
+                workersMonitorCommand = "/miner/" + monitorConfig.WalletID + "/workers/monitor";
+            }
         }
     }
 
