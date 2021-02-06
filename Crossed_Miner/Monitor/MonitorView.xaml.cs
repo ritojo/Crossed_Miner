@@ -9,7 +9,6 @@ namespace Crossed_Miner
     {
         public MonitorView()
         {
-            DataContext = new MonitorViewModel();
             InitializeComponent();
         }
     }

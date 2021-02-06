@@ -143,7 +143,7 @@ namespace Crossed_Miner.Monitor
         public string Status { get; set; }
 
         [JsonProperty("data")]
-        public Data Data { get; set; }
+        public PoolStatsData Data { get; set; }
     }
 
     internal class MinedBlock
@@ -182,7 +182,7 @@ namespace Crossed_Miner.Monitor
         public double Btc { get; set; }
     }
 
-    internal class Data
+    internal class PoolStatsData
     {
         [JsonProperty("topMiners")]
         public IList<object> TopMiners { get; set; }
@@ -205,10 +205,10 @@ namespace Crossed_Miner.Monitor
         public string Status { get; set; }
 
         [JsonProperty("data")]
-        public IList<Datum> Data { get; set; }
+        public IList<BlockHistoryDatum> Data { get; set; }
     }
 
-    internal class Datum
+    internal class BlockHistoryDatum
     {
         [JsonProperty("time")]
         public int Time { get; set; }
@@ -229,7 +229,7 @@ namespace Crossed_Miner.Monitor
         public string Status { get; set; }
 
         [JsonProperty("data")]
-        public Data NetStatsData { get; set; }
+        public NetStatsData Data { get; set; }
     }
 
     internal class NetStatsData
@@ -273,6 +273,127 @@ namespace Crossed_Miner.Monitor
 
         [JsonProperty("hashrate")]
         public double Hashrate { get; set; }
+    }
+    #endregion
+
+    #region MinerDashboard
+    internal class MinerDashboardResponse
+    {
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("data")]
+        public MinerDashboardData Data { get; set; }
+    }
+
+    internal class Statistic
+    {
+        [JsonProperty("time")]
+        public int Time { get; set; }
+
+        [JsonProperty("reportedHashrate")]
+        public int ReportedHashrate { get; set; }
+
+        [JsonProperty("currentHashrate")]
+        public double CurrentHashrate { get; set; }
+
+        [JsonProperty("validShares")]
+        public int ValidShares { get; set; }
+
+        [JsonProperty("invalidShares")]
+        public int InvalidShares { get; set; }
+
+        [JsonProperty("staleShares")]
+        public int StaleShares { get; set; }
+
+        [JsonProperty("activeWorkers")]
+        public int ActiveWorkers { get; set; }
+    }
+
+    internal class Worker
+    {
+
+        [JsonProperty("worker")]
+        public string WorkerName { get; set; }
+
+        [JsonProperty("time")]
+        public int Time { get; set; }
+
+        [JsonProperty("lastSeen")]
+        public int LastSeen { get; set; }
+
+        [JsonProperty("reportedHashrate")]
+        public int ReportedHashrate { get; set; }
+
+        [JsonProperty("currentHashrate")]
+        public double CurrentHashrate { get; set; }
+
+        [JsonProperty("validShares")]
+        public int ValidShares { get; set; }
+
+        [JsonProperty("invalidShares")]
+        public int InvalidShares { get; set; }
+
+        [JsonProperty("staleShares")]
+        public int StaleShares { get; set; }
+    }
+
+    internal class CurrentStatistics
+    {
+
+        [JsonProperty("time")]
+        public int Time { get; set; }
+
+        [JsonProperty("lastSeen")]
+        public int LastSeen { get; set; }
+
+        [JsonProperty("reportedHashrate")]
+        public int ReportedHashrate { get; set; }
+
+        [JsonProperty("currentHashrate")]
+        public double CurrentHashrate { get; set; }
+
+        [JsonProperty("validShares")]
+        public int ValidShares { get; set; }
+
+        [JsonProperty("invalidShares")]
+        public int InvalidShares { get; set; }
+
+        [JsonProperty("staleShares")]
+        public int StaleShares { get; set; }
+
+        [JsonProperty("activeWorkers")]
+        public int ActiveWorkers { get; set; }
+
+        [JsonProperty("unpaid")]
+        public long Unpaid { get; set; }
+    }
+
+    internal class Settings
+    {
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        [JsonProperty("monitor")]
+        public int Monitor { get; set; }
+
+        [JsonProperty("minPayout")]
+        public long MinPayout { get; set; }
+    }
+
+    internal class MinerDashboardData
+    {
+        [JsonProperty("statistics")]
+        public IList<Statistic> Statistics { get; set; }
+
+        [JsonProperty("workers")]
+        public IList<Worker> Workers { get; set; }
+
+        [JsonProperty("currentStatistics")]
+        public CurrentStatistics CurrentStatistics { get; set; }
+
+        [JsonProperty("settings")]
+        public Settings Settings { get; set; }
     }
     #endregion
 }
