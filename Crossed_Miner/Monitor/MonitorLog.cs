@@ -76,6 +76,7 @@ namespace Crossed_Miner.Monitor
         }
     }
 
+    #region PoolStats
     internal class PoolStatsResponse
     {
 
@@ -136,4 +137,29 @@ namespace Crossed_Miner.Monitor
         [JsonProperty("price")]
         public Price Price { get; set; }
     }
+    #endregion
+
+    #region BlocksHistory
+    internal class BlocksHistoryResponse
+    {
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("data")]
+        public IList<Datum> Data { get; set; }
+    }
+
+    internal class Datum
+    {
+        [JsonProperty("time")]
+        public int Time { get; set; }
+
+        [JsonProperty("nbrBlocks")]
+        public int NbrBlocks { get; set; }
+
+        [JsonProperty("difficulty")]
+        public object Difficulty { get; set; }
+    }
+    #endregion
+
 }
