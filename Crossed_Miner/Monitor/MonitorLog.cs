@@ -162,4 +162,36 @@ namespace Crossed_Miner.Monitor
     }
     #endregion
 
+    #region NetworkStats
+    internal class SampleResponse1
+    {
+
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("data")]
+        public Data NetStatsData { get; set; }
+    }
+
+    internal class NetStatsData
+    {
+        [JsonProperty("time")]
+        public int Time { get; set; }
+
+        [JsonProperty("blockTime")]
+        public double BlockTime { get; set; }
+
+        [JsonProperty("difficulty")]
+        public long Difficulty { get; set; }
+
+        [JsonProperty("hashrate")]
+        public long Hashrate { get; set; }
+
+        [JsonProperty("usd")]
+        public double Usd { get; set; }
+
+        [JsonProperty("btc")]
+        public double Btc { get; set; }
+    }
+    #endregion
 }
