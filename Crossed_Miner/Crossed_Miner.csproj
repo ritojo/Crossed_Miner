@@ -82,6 +82,7 @@
     </Compile>
     <Compile Include="Miner\MinerViewModel.cs" />
     <Compile Include="Miner\MiningState.cs" />
+    <Compile Include="Monitor\MonitorLog.cs" />
     <Compile Include="Monitor\MonitorView.xaml.cs">
       <DependentUpon>MonitorView.xaml</DependentUpon>
     </Compile>

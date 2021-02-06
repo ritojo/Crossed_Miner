@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Crossed_Miner.Monitor
 {
@@ -16,7 +17,9 @@ namespace Crossed_Miner.Monitor
         public bool taskRunning = false;
         public Log RunLog;
 
-        public const string apiUri = "https://api.ethermine.org/";
+        private Timer logTimer;
+
+        private const string apiUri = "https://api.ethermine.org/";
 
 
         public MonitorLog()
@@ -37,16 +40,32 @@ namespace Crossed_Miner.Monitor
         {
             taskRunning = true;
 
+            // There is a limit of 100 requests every 15 minutes.
+            // Data is cached for 2 minutes, so there is no
+            // point in more frequent requests. We need to setup
+            // a timer to handle this.
+            logTimer = new Timer(119000);
+            logTimer.Elapsed += TimerEvent;
+            logTimer.AutoReset = true;
+            logTimer.Enabled = true;
+
             while (taskRunning)
             {
                 // Get Log Data
                 string privateData = GetData();
                 RunLog = JsonConvert.DeserializeObject<Log>(privateData);
 
-                // There is a limit of 150 requests every minute.
-                // We'll set this to 5 seconds for now.
-                Task.Delay(5000);
+                // There is a limit of 100 requests every 15 minutes.
+                // Data is cached for 2 minutes, so there is no
+                // point in more frequent requests. We need to setup
+                // a timer to handle this.
+                Task.Delay(200);
             }
+        }
+
+        private static void TimerEvent(Object source, ElapsedEventArgs e)
+        {
+
         }
 
         private string GetData()
