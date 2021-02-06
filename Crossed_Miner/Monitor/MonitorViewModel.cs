@@ -2,7 +2,9 @@
 {
     public class MonitorViewModel : ObservableBase
     {
-        public MonitorViewModel()
+        private MiningConfig miningConfig;
+
+        public MonitorViewModel(MiningConfig config)
         {
 
         }

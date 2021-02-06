@@ -18,12 +18,34 @@ namespace Crossed_Miner.Monitor
         public Log RunLog;
 
         private Timer logTimer;
+        private MiningConfig monitorConfig;
 
-        private const string apiUri = "https://api.ethermine.org/";
+        private const string apiUri = "https://api.ethermine.org";
 
+        // Pool Commands
+        private const string poolStatsCommand = "/poolStats";
+        private const string blocksHistoryCommand = "/blocks/history";
+        private const string networkStatsCommand = "/networkStats";
+        private const string serverHistoryCommand = "/servers/history";
 
-        public MonitorLog()
+        // Miner Commands
+        private string minerDashboardCommand;
+        private string minerHistoryCommand;
+        private string minerPayoutsCommand;
+        private string minerRoundsCommand;
+        private string minerSettingsCommand;
+        private string minerStatisticsCommand;
+
+        // Worker Commands
+        private string workerStatisticsCommand;
+        private string workerIndividualHistoricalStatisticsCommand;
+        private string workerIndividualStatisticsCommand;
+        private string workermonitorCommand;
+
+        public MonitorLog(MiningConfig config)
         {
+            monitorConfig = config;
+
             //Spawn Task
             task = new Task(LoggerTask);
             task.Start();
@@ -92,6 +114,24 @@ namespace Crossed_Miner.Monitor
             //    throw;
             //}
             return String.Empty;
+        }
+
+        private void BuildMinerCommands()
+        {
+            if (monitorConfig.WalletID != null)
+            {
+                minerDashboardCommand = "/miner/" + monitorConfig.WalletID + "/dashboard";
+                minerHistoryCommand = "/miner/" + monitorConfig.WalletID + "/history";
+                minerPayoutsCommand = "/miner/" + monitorConfig.WalletID + "/payouts";
+                minerRoundsCommand = "/miner/" + monitorConfig.WalletID + "/rounds";
+                minerSettingsCommand = "/miner/" + monitorConfig.WalletID + "/settings";
+                minerStatisticsCommand = "/miner/" + monitorConfig.WalletID + "/currentStats";
+            }
+        }
+
+        private void BuildWorkerCommands()
+        {
+
         }
     }
 
