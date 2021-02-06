@@ -129,6 +129,20 @@ namespace Crossed_Miner
             }
         }
 
+        private MonitorViewModel currentMonitorViewModel = null;
+        public MonitorViewModel CurrentMonitorViewModel
+        {
+            get
+            {
+                if (currentMonitorViewModel == null)
+                {
+                    currentMonitorViewModel = new MonitorViewModel(CurrentMiningConfig);
+                }
+
+                return currentMonitorViewModel;
+            }
+        }
+
         /// <summary>
         /// This function is subscribed to the SetupViewModel event. When the event is invoked, this function will pull in Setup info
         /// </summary>

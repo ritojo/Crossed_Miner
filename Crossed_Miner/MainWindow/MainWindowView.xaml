@@ -139,7 +139,7 @@
                 <local:MinerView DataContext="{Binding CurrentMinerViewModel}"/>
             </TabItem>
             <TabItem Header="Monitor" Width="100" Height="65" Background="#FF323131" Foreground="White" BorderBrush="{x:Null}">
-                <local:MonitorView/>
+                <local:MonitorView DataContext="{Binding CurrentMonitorViewModel}"/>
             </TabItem>
         </TabControl>
 

@@ -6,7 +6,7 @@
 
         public MonitorViewModel(MiningConfig config)
         {
-
+            miningConfig = config;
         }
     }
 }
