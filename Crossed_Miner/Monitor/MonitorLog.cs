@@ -643,4 +643,41 @@ namespace Crossed_Miner.Monitor
     }
     #endregion
 
+    #region IndividualWorkerStats
+    internal class IndividualWorkerStatsResponse
+    {
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("data")]
+        public IndividualWorkerStatsData Data { get; set; }
+    }
+
+    internal class IndividualWorkerStatsData
+    {
+        [JsonProperty("time")]
+        public int Time { get; set; }
+
+        [JsonProperty("lastSeen")]
+        public int LastSeen { get; set; }
+
+        [JsonProperty("reportedHashrate")]
+        public int ReportedHashrate { get; set; }
+
+        [JsonProperty("currentHashrate")]
+        public int CurrentHashrate { get; set; }
+
+        [JsonProperty("validShares")]
+        public int ValidShares { get; set; }
+
+        [JsonProperty("invalidShares")]
+        public int InvalidShares { get; set; }
+
+        [JsonProperty("staleShares")]
+        public int StaleShares { get; set; }
+
+        [JsonProperty("averageHashrate")]
+        public double AverageHashrate { get; set; }
+    }
+    #endregion
 }
