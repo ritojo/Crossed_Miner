@@ -565,4 +565,45 @@ namespace Crossed_Miner.Monitor
         public double BtcPerMin { get; set; }
     }
     #endregion
+
+    #region Workers
+    internal class WorkersResponse
+    {
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("data")]
+        public IList<WorkersDatum> Data { get; set; }
+    }
+
+    internal class WorkersDatum
+    {
+        [JsonProperty("worker")]
+        public string Worker { get; set; }
+
+        [JsonProperty("time")]
+        public int Time { get; set; }
+
+        [JsonProperty("lastSeen")]
+        public int LastSeen { get; set; }
+
+        [JsonProperty("reportedHashrate")]
+        public int ReportedHashrate { get; set; }
+
+        [JsonProperty("currentHashrate")]
+        public double CurrentHashrate { get; set; }
+
+        [JsonProperty("validShares")]
+        public int ValidShares { get; set; }
+
+        [JsonProperty("invalidShares")]
+        public int InvalidShares { get; set; }
+
+        [JsonProperty("staleShares")]
+        public int StaleShares { get; set; }
+
+        [JsonProperty("averageHashrate")]
+        public double AverageHashrate { get; set; }
+    }
+    #endregion
 }
