@@ -434,4 +434,33 @@ namespace Crossed_Miner.Monitor
         public int ActiveWorkers { get; set; }
     }
     #endregion
+
+    #region MinerPayouts
+    internal class MinerPayoutsResponse
+    {
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("data")]
+        public IList<MinerPayoutsDatum> Data { get; set; }
+    }
+
+    internal class MinerPayoutsDatum
+    {
+        [JsonProperty("start")]
+        public int Start { get; set; }
+
+        [JsonProperty("end")]
+        public int End { get; set; }
+
+        [JsonProperty("amount")]
+        public long Amount { get; set; }
+
+        [JsonProperty("txHash")]
+        public string TxHash { get; set; }
+
+        [JsonProperty("paidOn")]
+        public int PaidOn { get; set; }
+    }
+    #endregion
 }
