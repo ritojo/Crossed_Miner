@@ -483,4 +483,30 @@ namespace Crossed_Miner.Monitor
         public object Amount { get; set; }
     }
     #endregion
+
+    #region MinerSettings
+    internal class MinerSettingsResponse
+    {
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("data")]
+        public MinerSettingsData Data { get; set; }
+    }
+
+    internal class MinerSettingsData
+    {
+        [JsonProperty("email")]
+        public string Email { get; set; }
+
+        [JsonProperty("monitor")]
+        public int Monitor { get; set; }
+
+        [JsonProperty("minPayout")]
+        public long MinPayout { get; set; }
+
+        [JsonProperty("ip")]
+        public string Ip { get; set; }
+    }
+    #endregion
 }
