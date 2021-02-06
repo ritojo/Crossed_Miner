@@ -463,4 +463,24 @@ namespace Crossed_Miner.Monitor
         public int PaidOn { get; set; }
     }
     #endregion
+
+    #region MinerRounds
+    internal class MinerRoundsResponse
+    {
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("data")]
+        public IList<MinerRoundsDatum> Data { get; set; }
+    }
+
+    internal class MinerRoundsDatum
+    {
+        [JsonProperty("block")]
+        public int Block { get; set; }
+
+        [JsonProperty("amount")]
+        public object Amount { get; set; }
+    }
+    #endregion
 }
