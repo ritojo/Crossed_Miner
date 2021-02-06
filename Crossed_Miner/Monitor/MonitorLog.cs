@@ -163,7 +163,7 @@ namespace Crossed_Miner.Monitor
     #endregion
 
     #region NetworkStats
-    internal class SampleResponse1
+    internal class NetworkStatsResponse
     {
 
         [JsonProperty("status")]
@@ -192,6 +192,28 @@ namespace Crossed_Miner.Monitor
 
         [JsonProperty("btc")]
         public double Btc { get; set; }
+    }
+    #endregion
+
+    #region ServerHistory
+    internal class ServerHistoryResponse
+    {
+        [JsonProperty("status")]
+        public string Status { get; set; }
+
+        [JsonProperty("data")]
+        public IList<ServerHistoryDatum> Data { get; set; }
+    }
+    internal class ServerHistoryDatum
+    {
+        [JsonProperty("time")]
+        public int Time { get; set; }
+
+        [JsonProperty("server")]
+        public string Server { get; set; }
+
+        [JsonProperty("hashrate")]
+        public double Hashrate { get; set; }
     }
     #endregion
 }
