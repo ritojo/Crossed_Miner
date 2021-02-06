@@ -35,6 +35,8 @@ namespace Crossed_Miner
         {
             taskRunning = true;
 
+            //TODO: lock this
+
             while(taskRunning)
             {
                 // Get Log Data
@@ -69,6 +71,13 @@ namespace Crossed_Miner
                 }
                 throw;
             }
+        }
+
+        //Lets any subscribers know that new data is available to view
+        public event EventHandler<EventArgs> DataUpdatedEvent;
+        private void OnDataUpdated(EventArgs e)
+        {
+            DataUpdatedEvent?.Invoke(this, EventArgs.Empty);
         }
     }
 

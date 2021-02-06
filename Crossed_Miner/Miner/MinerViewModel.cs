@@ -157,18 +157,31 @@ namespace Crossed_Miner
 
             //processStartInfo.Arguments = "-a ethash --api-bind-telnet 0 --api-bind-http 127.0.0.1:4067 -o stratum+tcp://" + Settings.Server + ":4444 -u " + Settings.Wallet + " -p x -w " + Settings.Worker;
             personalLog = new PersonalLog();
+            personalLog.DataUpdatedEvent += pl_UpdateUIWithNewData;
             //process = Process.Start(processStartInfo);
         }
 
+        private void pl_UpdateUIWithNewData(object sender, EventArgs e)
+        {
+            UpdateUI();
+        }
+
+        private void UpdateUI()
+        {
+            CurrentHashRate        = personalLog.RunLog.Hashrate;
+            SessionDurationSeconds = personalLog.RunLog.Uptime;
+            TotalHashes            = CurrentHashRate * sessionDurationSeconds;
+        }
+
         // Event to track the progress
-        void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        private void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
         {
             int Value = e.ProgressPercentage;
             Console.WriteLine(e.ProgressPercentage);
         }
 
         // Download Completed Event
-        void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        private void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
         {
             // Unzip t-rex.exe
             using (ZipArchive archive = ZipFile.OpenRead("./t-rex.zip"))

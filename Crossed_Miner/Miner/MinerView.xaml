@@ -3,10 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
-             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
              xmlns:local="clr-namespace:Crossed_Miner"
              mc:Ignorable="d" 
-             d:DesignHeight="375" d:DesignWidth="924"
              Background="#FF323131">
     <UserControl.Resources>
         <Style x:Key="ButtonFocusVisual">
@@ -64,7 +62,7 @@
             </Setter>
         </Style>
     </UserControl.Resources>
-    <Grid Grid.Row="1" HorizontalAlignment="Left" Height="375" Margin="0,0,0,0" VerticalAlignment="Top" Width="924">
+    <Grid Grid.Row="1" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top">
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
@@ -77,15 +75,9 @@
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
-        <lvc:AngularGauge Width="300" Height="300" Grid.RowSpan="2" Margin="15" Grid.Row="0" Grid.Column="0" Value="{Binding CurrentHashRate}" LabelsStep="5" TicksStep="5" SectionsInnerRadius="0.5" TicksForeground="AntiqueWhite" Foreground="AntiqueWhite">
-            <lvc:AngularGauge.Sections>
-                <lvc:AngularSection FromValue="0" ToValue="100" Fill="#FF707070"/>
-            </lvc:AngularGauge.Sections>
-        </lvc:AngularGauge>
-        <Label Grid.Row="2" Grid.Column="1" Content="Total Hashes" Margin="10"  Foreground="White"/>
-        <TextBox Grid.Row="2" Grid.Column="2" Text="{Binding HashCount}" Margin="10" Background="#FF707070"/>
-        <Label Grid.Row="2" Grid.Column="3" Content="Session Duration" Margin="10" Foreground="White"/>
-        <TextBox Grid.Row="2" Grid.Column="4" Text="{Binding SessionDurationSeconds}" Margin="10" Background="#FF707070"/>
+
+        <local:GpuStatsView DataContext="{Binding CurrentGpuStatsViewModel}" Grid.Row="0" Grid.Column="3"/>
+
         <ToggleButton IsChecked="{Binding IsMining}" Content="Mining State" HorizontalAlignment="Left"  VerticalAlignment="Center" Margin="10" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="2" Command="{Binding ToggleMiningCommand}" Style="{DynamicResource ToggleButtonStyle1}"/>
         <Popup IsOpen="{Binding IsSetupDisplayed}">
             <local:SetupView DataContext="{Binding CurrentMinerSetupViewModel}"/>

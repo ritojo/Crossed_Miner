@@ -1,0 +1,74 @@
+﻿<UserControl x:Class="Crossed_Miner.GpuStatsView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:lvc="clr-namespace:LiveCharts.Wpf;assembly=LiveCharts.Wpf"
+             mc:Ignorable="d" 
+             Background="#FF323131">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
+        </Grid.ColumnDefinitions>
+
+        <lvc:AngularGauge Width="150" Height="150" Margin="15" Grid.Row="0" Grid.Column="0" Value="{Binding HashRate}" LabelsStep="10" TicksStep="5" SectionsInnerRadius="0.5" TicksForeground="AntiqueWhite" Foreground="AntiqueWhite">
+            <lvc:AngularGauge.Sections>
+                <lvc:AngularSection FromValue="0" ToValue="100" Fill="#FF707070"/>
+            </lvc:AngularGauge.Sections>
+        </lvc:AngularGauge>
+
+        <lvc:AngularGauge Width="150" Height="150" Margin="15" Grid.Row="1" Grid.Column="0" Value="{Binding Temperature}" LabelsStep="10" TicksStep="5" SectionsInnerRadius="0.5" TicksForeground="AntiqueWhite" Foreground="AntiqueWhite">
+            <lvc:AngularGauge.Sections>
+                <lvc:AngularSection FromValue="0" ToValue="60" Fill="Green"/>
+                <lvc:AngularSection FromValue="60" ToValue="80" Fill="Goldenrod"/>
+                <lvc:AngularSection FromValue="80" ToValue="100" Fill="DarkRed"/>
+            </lvc:AngularGauge.Sections>
+        </lvc:AngularGauge>
+
+        <lvc:AngularGauge Width="150" Height="150" Margin="15" Grid.Row="2" Grid.Column="0" ToValue="400" Value="{Binding PowerDraw}" LabelsStep="50" TicksStep="10" SectionsInnerRadius="0.5" TicksForeground="AntiqueWhite" Foreground="AntiqueWhite">
+            <lvc:AngularGauge.Sections>
+                <lvc:AngularSection FromValue="0" ToValue="400" Fill="#FF707070"/>
+            </lvc:AngularGauge.Sections>
+        </lvc:AngularGauge>
+
+        <GroupBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Header="GPU Info" Foreground="AntiqueWhite">
+            <Grid >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="auto"/>
+                    <ColumnDefinition Width="auto" MinWidth="100"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition Height="auto"/>
+                </Grid.RowDefinitions>
+
+                <Label Grid.Row="0" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Name"/>
+                <Label Grid.Row="1" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Intensity"/>
+                <Label Grid.Row="2" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Efficiency"/>
+                <Label Grid.Row="3" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Fan Speed (%)"/>
+                <Label Grid.Row="4" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Accepted Count"/>
+                <Label Grid.Row="5" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Rejected Count"/>
+                <Label Grid.Row="6" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Solved Count"/>
+
+                <TextBox Grid.Row="0" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding Name}"/>
+                <TextBox Grid.Row="1" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding Intensity}"/>
+                <TextBox Grid.Row="2" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding Efficiency}"/>
+                <TextBox Grid.Row="3" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding FanSpeedPercent}"/>
+                <TextBox Grid.Row="4" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding AcceptedCount}"/>
+                <TextBox Grid.Row="5" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding RejectedCount}"/>
+                <TextBox Grid.Row="6" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding SolvedCount}"/>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</UserControl>

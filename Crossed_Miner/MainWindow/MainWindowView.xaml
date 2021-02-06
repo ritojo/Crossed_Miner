@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Crossed_Miner"
         x:Class="Crossed_Miner.MainWindowView"
         mc:Ignorable="d" MouseDown="Window_MouseDown"
-        Title="Crossed Swords - Ethereum Miner" Height="400" Width="1024" Background="#FF323131" WindowStyle="None" ResizeMode="NoResize" Icon="crossed_swords.png">
+        Title="Crossed Swords - Ethereum Miner" Height="650" Width="1024" Background="#FF323131" WindowStyle="None" ResizeMode="NoResize" Icon="crossed_swords.png">
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="TabItemFocusVisual">
@@ -120,18 +120,19 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid x:Name="LayoutRoot" HorizontalAlignment="Left" Height="400" Margin="0,0,0,0" VerticalAlignment="Top" Width="1024">
+    <Grid x:Name="LayoutRoot" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top">
         <Grid.RowDefinitions>
-            <RowDefinition Height="25"/>
-            <RowDefinition Height="375"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="100"/>
-            <ColumnDefinition Width="924"/>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
         <Label x:Name="TitleLabel" Content="Crossed Swords - Ethereum Miner" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top" FontSize="14" Foreground="White"/>
-        <TabControl x:Name="menuTabs" TabStripPlacement="Left" Height="375" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Width="1024" Background="#FF707070" BorderBrush="{x:Null}">
+        <TabControl x:Name="menuTabs" TabStripPlacement="Left" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF707070" BorderBrush="{x:Null}">
             <TabControl.BitmapEffect>
                 <DropShadowBitmapEffect Color="Black" Direction="270"/>
             </TabControl.BitmapEffect>
