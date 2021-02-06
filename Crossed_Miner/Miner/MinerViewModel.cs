@@ -127,9 +127,27 @@ namespace Crossed_Miner
         {
             if (!System.IO.File.Exists(exeName))
             {
-                MessageBox.Show(Application.Current.MainWindow, "You must add t-rex.exe to this folder before mining.", "You Suck", MessageBoxButton.OK, MessageBoxImage.Information);
-                IsMining = false;
-                return;
+                MessageBoxResult result =  MessageBox.Show(Application.Current.MainWindow, "T-Rex.exe not found. Do you want to download it?", "You Suck", MessageBoxButton.YesNo, MessageBoxImage.Question);
+                switch(result)
+                {
+                    case MessageBoxResult.Yes:
+                        // Download T-Rex
+                        using (WebClient wc = new WebClient())
+                        {
+                            wc.UseDefaultCredentials = true;
+                            wc.DownloadProgressChanged += wc_DownloadProgressChanged;
+                            wc.DownloadFileCompleted += new AsyncCompletedEventHandler(wc_DownloadFileCompleted);
+                            wc.DownloadFileAsync( new System.Uri("https://github.com/trexminer/T-Rex/releases/download/0.19.9/t-rex-0.19.9-win-cuda11.1.zip"), "./t-rex.zip");
+                        }
+
+                        break;
+
+                    case MessageBoxResult.No:
+                    default:
+                        MessageBox.Show(Application.Current.MainWindow, "No mining for you then!", "You Really Suck", MessageBoxButton.OK, MessageBoxImage.Error);
+                        isMining = false;
+                        break;
+                }
             }
 
             CheckSettings(miningConfig); //Pass as dependency for unit testing purposes if we want
@@ -137,6 +155,30 @@ namespace Crossed_Miner
             //processStartInfo.Arguments = "-a ethash --api-bind-telnet 0 --api-bind-http 127.0.0.1:4067 -o stratum+tcp://" + Settings.Server + ":4444 -u " + Settings.Wallet + " -p x -w " + Settings.Worker;
             personalLog = new PersonalLog();
             //process = Process.Start(processStartInfo);
+        }
+
+        // Event to track the progress
+        void wc_DownloadProgressChanged(object sender, DownloadProgressChangedEventArgs e)
+        {
+            int Value = e.ProgressPercentage;
+            Console.WriteLine(e.ProgressPercentage);
+        }
+
+        // Download Completed Event
+        void wc_DownloadFileCompleted(object sender, AsyncCompletedEventArgs e)
+        {
+            // Unzip t-rex.exe
+            using (ZipArchive archive = ZipFile.OpenRead("./t-rex.zip"))
+            {
+                foreach (ZipArchiveEntry entry in archive.Entries)
+                {
+                    if(entry.FullName.Contains("t-rex.exe"))
+                    entry.ExtractToFile(Path.Combine(".", entry.FullName));
+                }
+            }
+
+            //Delete Zip
+            File.Delete("./t-rex.zip");
         }
 
         private void StopMining()
