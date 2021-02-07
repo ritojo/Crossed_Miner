@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Crossed_Miner"
         x:Class="Crossed_Miner.MainWindowView"
         mc:Ignorable="d" MouseDown="Window_MouseDown"
-        Title="Crossed Swords - Ethereum Miner" Height="650" Width="1024" Background="#FF323131" WindowStyle="None" ResizeMode="NoResize" Icon="crossed_swords.png">
+        Title="Crossed Swords - Ethereum Miner" Height="auto" Width="auto" Background="#FF323131" SizeToContent="WidthAndHeight" WindowStyle="None" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" Icon="crossed_swords.png">
     <Window.Resources>
         <ResourceDictionary>
             <Style x:Key="TabItemFocusVisual">
@@ -120,7 +120,7 @@
         </ResourceDictionary>
     </Window.Resources>
 
-    <Grid x:Name="LayoutRoot" HorizontalAlignment="Left" Margin="0,0,0,0" VerticalAlignment="Top">
+    <Grid HorizontalAlignment="Left"  VerticalAlignment="Top">
         <Grid.RowDefinitions>
             <RowDefinition Height="auto"/>
             <RowDefinition Height="auto"/>
@@ -128,11 +128,10 @@
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
-        <Label x:Name="TitleLabel" Content="Crossed Swords - Ethereum Miner" HorizontalAlignment="Left" Margin="0,0,0,0" Grid.Row="0" Grid.ColumnSpan="2" VerticalAlignment="Top" FontSize="14" Foreground="White"/>
-        <TabControl x:Name="menuTabs" TabStripPlacement="Left" Margin="0,0,0,0" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF707070" BorderBrush="{x:Null}">
+        <Label Content="Crossed Swords - Ethereum Miner" HorizontalAlignment="Left" Grid.Row="0" VerticalAlignment="Top" FontSize="14" Foreground="White" Height="29" Width="220"/>
+        <TabControl x:Name="menuTabs" TabStripPlacement="Left" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Grid.RowSpan="3" VerticalAlignment="Top" HorizontalAlignment="Left" Background="#FF707070" BorderBrush="{x:Null}" Height="auto" Width="auto">
             <TabControl.BitmapEffect>
                 <DropShadowBitmapEffect Color="Black" Direction="270"/>
             </TabControl.BitmapEffect>
@@ -144,8 +143,18 @@
             </TabItem>
         </TabControl>
 
-        <Button x:Name="CloseButton" Content="Close" Command="{Binding CloseCommand}"        HorizontalAlignment="Left" Margin="10,326,0,0" VerticalAlignment="Top" Width="80" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1"/>
-        <Button x:Name="SetupButton" Content="Setup" Command="{Binding DisplaySetupCommand}" HorizontalAlignment="Left" Margin="10,282,0,0" VerticalAlignment="Top" Width="80" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1"/>
+        <Grid Grid.Row="2" Grid.Column="0" VerticalAlignment="Bottom">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Button x:Name="SetupButton" Content="Setup" Command="{Binding DisplaySetupCommand}" Margin="2,0,0,2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="80" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="0" Grid.Column="0"/>
+            <Button x:Name="CloseButton" Content="Close" Command="{Binding CloseCommand}"        Margin="2,0,0,2" VerticalAlignment="Bottom" HorizontalAlignment="Left" Width="80" Height="39" Background="#FF707070" BorderBrush="{x:Null}" Foreground="White" Grid.Row="1" Grid.Column="0"/>
+        </Grid>
 
         <Popup x:Name="SetupPopup" IsOpen="{Binding IsSetupDisplayed}" Placement="Relative" PlacementTarget="{Binding ElementName=SetupButton}" AllowsTransparency="True">
             <local:SetupView DataContext="{Binding CurrentSetupViewModel}"/>

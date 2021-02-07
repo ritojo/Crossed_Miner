@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using Gstc.Collections.Observable;
+using Newtonsoft.Json;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -31,58 +32,6 @@ namespace Crossed_Miner
             };
         }
 
-        private double currentHashRate = 0.0;
-        public double CurrentHashRate
-        {
-            get
-            {
-                return currentHashRate;
-            }
-            set
-            {
-                if (currentHashRate != value)
-                {
-                    currentHashRate = value;
-                    OnPropertyChanged("CurrentHashRate");
-                }
-            }
-        }
-
-        private double totalHashes = 0.0;
-        public double TotalHashes
-        {
-            get
-            {
-                return totalHashes;
-            }
-            set
-            {
-                if (totalHashes != value)
-                {
-                    totalHashes = value;
-                    OnPropertyChanged("TotalHashes");
-                }
-            }
-        }
-
-        private double sessionDurationSeconds = 0.0;
-        public double SessionDurationSeconds
-        {
-            get
-            {
-                //TODO: format into h/m/s, but store as seconds
-                return sessionDurationSeconds;
-            }
-            set
-            {
-                if (sessionDurationSeconds != value)
-                {
-                    sessionDurationSeconds = value;
-                    OnPropertyChanged("SessionDurationSeconds");
-                }
-            }
-        }
-
         private bool isMining = false;
         public bool IsMining
         {
@@ -96,6 +45,50 @@ namespace Crossed_Miner
                 {
                     isMining = value;
                     OnPropertyChanged("IsMining");
+                }
+            }
+        }
+
+        private ObservableList<GpuStatsViewModel> gpuList = null;
+        public ObservableList<GpuStatsViewModel> GpuList
+        {
+            get
+            {
+                if (gpuList == null)
+                {
+                    gpuList = new ObservableList<GpuStatsViewModel>();
+                }
+
+                return gpuList;
+            }
+            set
+            {
+                if (gpuList != value)
+                {
+                    gpuList = value;
+                    OnPropertyChanged("GpuList");
+                }
+            }
+        }
+
+        private GpuStatsViewModel currentGpuStatsViewModel = null;
+        public GpuStatsViewModel CurrentGpuStatsViewModel
+        {
+            get
+            {
+                if (currentGpuStatsViewModel == null)
+                {
+                    currentGpuStatsViewModel = new GpuStatsViewModel();
+                }
+
+                return currentGpuStatsViewModel;
+            }
+            set
+            {
+                if (currentGpuStatsViewModel != value)
+                {
+                    currentGpuStatsViewModel = value;
+                    OnPropertyChanged("CurrentGpuStatsViewModel");
                 }
             }
         }
@@ -168,9 +161,36 @@ namespace Crossed_Miner
 
         private void UpdateUI()
         {
-            CurrentHashRate        = personalLog.RunLog.Hashrate;
-            SessionDurationSeconds = personalLog.RunLog.Uptime;
-            TotalHashes            = CurrentHashRate * sessionDurationSeconds;
+            int numGpus = personalLog.RunLog.GPUTotal;
+
+            if (GpuList.Count != numGpus)
+            {
+                //Pull in all the GPU info
+                foreach (GPUS gpu in personalLog.RunLog.GPUs)
+                {
+                    //Might not be the best way to do this, but if the GPU list changes at all, dump our local list and reinitialize it
+                    GpuList.Clear();
+                    GpuList.Add(new GpuStatsViewModel());
+                }
+            }
+
+            for (int i = 0; i < numGpus; i++)
+            {
+                GPUS gpuData               = personalLog.RunLog.GPUs[i];
+                GpuList[i].Name            = $"{gpuData.Vendor} {gpuData.Name}";
+                GpuList[i].DeviceID        = gpuData.DeviceID;
+                GpuList[i].Efficiency      = gpuData.Efficiency;
+                GpuList[i].PowerDraw       = gpuData.Power;
+                GpuList[i].Temperature     = gpuData.Temperature;
+                GpuList[i].Hashrate        = gpuData.Hashrate;
+                GpuList[i].Intensity       = gpuData.Intensity;
+                GpuList[i].FanSpeedPercent = gpuData.FanSpeed;
+
+                StatByGPU gpuStats         = personalLog.RunLog.StatByGPUs[i];
+                GpuList[i].AcceptedCount   = gpuStats.AcceptedCount;
+                GpuList[i].RejectedCount   = gpuStats.RejectedCount;
+                GpuList[i].SolvedCount     = gpuStats.SolvedCount;
+            }
         }
 
         // Event to track the progress

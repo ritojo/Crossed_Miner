@@ -30,6 +30,23 @@ namespace Crossed_Miner
             }
         }
 
+        private int deviceID = 0;
+        public int DeviceID
+        {
+            get
+            {
+                return deviceID;
+            }
+            set
+            {
+                if (deviceID != value)
+                {
+                    deviceID = value;
+                    OnPropertyChanged("DeviceID");
+                }
+            }
+        }
+
         private string efficiency = string.Empty;
         public string Efficiency
         {

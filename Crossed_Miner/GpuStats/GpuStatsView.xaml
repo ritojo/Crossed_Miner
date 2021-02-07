@@ -15,6 +15,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="auto"/>
             <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="auto"/>
         </Grid.ColumnDefinitions>
 
         <lvc:AngularGauge Width="150" Height="150" Margin="15" Grid.Row="0" Grid.Column="0" Value="{Binding HashRate}" LabelsStep="10" TicksStep="5" SectionsInnerRadius="0.5" TicksForeground="AntiqueWhite" Foreground="AntiqueWhite">
@@ -37,38 +38,42 @@
             </lvc:AngularGauge.Sections>
         </lvc:AngularGauge>
 
-        <GroupBox Grid.Row="0" Grid.Column="1" Grid.RowSpan="2" Header="GPU Info" Foreground="AntiqueWhite">
-            <Grid >
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="auto"/>
-                    <ColumnDefinition Width="auto" MinWidth="100"/>
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                    <RowDefinition Height="auto"/>
-                </Grid.RowDefinitions>
+        <Separator Grid.Column="1" Grid.RowSpan="7" Foreground="AntiqueWhite" Margin="4">
+            <Separator.LayoutTransform>
+                <RotateTransform Angle="90"/>
+            </Separator.LayoutTransform>
+        </Separator>
 
-                <Label Grid.Row="0" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Name"/>
-                <Label Grid.Row="1" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Intensity"/>
-                <Label Grid.Row="2" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Efficiency"/>
-                <Label Grid.Row="3" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Fan Speed (%)"/>
-                <Label Grid.Row="4" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Accepted Count"/>
-                <Label Grid.Row="5" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Rejected Count"/>
-                <Label Grid.Row="6" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Solved Count"/>
+        <Grid Grid.Row="0" Grid.Column="2" Grid.RowSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto"/>
+                <ColumnDefinition Width="auto" MinWidth="100"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+                <RowDefinition Height="auto"/>
+            </Grid.RowDefinitions>
 
-                <TextBox Grid.Row="0" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding Name}"/>
-                <TextBox Grid.Row="1" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding Intensity}"/>
-                <TextBox Grid.Row="2" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding Efficiency}"/>
-                <TextBox Grid.Row="3" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding FanSpeedPercent}"/>
-                <TextBox Grid.Row="4" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding AcceptedCount}"/>
-                <TextBox Grid.Row="5" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding RejectedCount}"/>
-                <TextBox Grid.Row="6" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding SolvedCount}"/>
-            </Grid>
-        </GroupBox>
+            <Label Grid.Row="0" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Name"/>
+            <Label Grid.Row="1" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Intensity"/>
+            <Label Grid.Row="2" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Efficiency"/>
+            <Label Grid.Row="3" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Fan Speed (%)"/>
+            <Label Grid.Row="4" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Accepted Count"/>
+            <Label Grid.Row="5" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Rejected Count"/>
+            <Label Grid.Row="6" Grid.Column="0" Margin="6" Foreground="AntiqueWhite" Content="Solved Count"/>
+
+            <TextBox Grid.Row="0" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding Name}"/>
+            <TextBox Grid.Row="1" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding Intensity}"/>
+            <TextBox Grid.Row="2" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding Efficiency}"/>
+            <TextBox Grid.Row="3" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding FanSpeedPercent}"/>
+            <TextBox Grid.Row="4" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding AcceptedCount}"/>
+            <TextBox Grid.Row="5" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding RejectedCount}"/>
+            <TextBox Grid.Row="6" Grid.Column="1" Margin="2" IsReadOnly="True" Text="{Binding SolvedCount}"/>
+        </Grid>
     </Grid>
 </UserControl>
